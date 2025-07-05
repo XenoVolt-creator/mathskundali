@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mathskundali</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <header>
+    <nav>
+      <h1 class="logo">Mathskundali</h1>
+      <ul class="nav-links">
+        <li><a href="#" onclick="navigate('home')">Home</a></li>
+        <li><a href="#" onclick="navigate('tricks')">Magic Tricks</a></li>
+        <li><a href="#" onclick="navigate('explanations')">Explanations</a></li>
+        <li><a href="#" onclick="navigate('about')">About Us</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    <!-- Default Home Section -->
+    <section class="hero">
+      <h2>Unlocking the Magic of Numbers</h2>
+      <p>Welcome to Mathskundali, where we blend mathematical prediction with magic!</p>
+      <div class="tricks">
+        <div class="card"><strong>Magic Trick 1</strong><br><button onclick="showTrick(1)">Play the Trick</button></div>
+        <div class="card"><strong>Magic Trick 2</strong><br><button onclick="showTrick(2)">Play the Trick</button></div>
+        <div class="card"><strong>Magic Trick 3</strong><br><button onclick="showTrick(3)">Play the Trick</button></div>
+        <div class="card"><strong>Magic Trick 4</strong><br><button onclick="showTrick(4)">Play the Trick</button></div>
+      </div>
+    </section>
+
+    <section class="about">
+      <h2>About Us</h2>
+      <p>We’re passionate about math and its mystical power. Mathskundali features 6 magic-based tricks to amaze and teach.</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Mathskundali. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const mainContent = document.getElementById('main-content');
+
+    function navigate(view) {
+      if (view === 'home' || view === 'tricks') {
+        mainContent.innerHTML = `
+          <section class="hero">
+            <h2>Unlocking the Magic of Numbers</h2>
+            <p>Welcome to Mathskundali, where we blend mathematical prediction with magic!</p>
+            <div class="tricks">
+              <div class="card"><strong>Magic Trick 1</strong><br><button onclick="showTrick(1)">Play the Trick</button></div>
+              <div class="card"><strong>Magic Trick 2</strong><br><button onclick="showTrick(2)">Play the Trick</button></div>
+              <div class="card"><strong>Magic Trick 3</strong><br><button onclick="showTrick(3)">Play the Trick</button></div>
+              <div class="card"><strong>Magic Trick 4</strong><br><button onclick="showTrick(4)">Play the Trick</button></div>
+              <div class="card"><strong>Magic Trick 5</strong><br><button onclick="showTrick(5)">Play the Trick</button></div>
+              <div class="card"><strong>Magic Trick 6</strong><br><button onclick="showTrick(6)">Play the Trick</button></div>
+            </div>
+          </section>
+
+          <section class="about">
+            <h2>About Us</h2>
+            <p>We’re passionate about math and its mystical power. Mathskundali features 6 magic-based tricks to amaze and teach.</p>
+          </section>
+        `;
+      } else if (view === 'explanations') {
+        mainContent.innerHTML = `
+          <section class="explanations">
+            <h2>Explanations</h2>
+            <p>Each trick you see here uses clever math logic. More detailed breakdowns will be added soon!</p>
+          </section>
+        `;
+      } else if (view === 'about') {
+        mainContent.innerHTML = `
+          <section class="about">
+            <h2>About Us</h2>
+            <p>We’re a group of students passionate about the mystical beauty of math. Mathskundali is our attempt to bring prediction and fun together through numbers.</p>
+          </section>
+        `;
+      }
+    }
+
+    function showTrick(number) {
+      mainContent.innerHTML = `
+        <section class="trick">
+          <h2>Magic Trick ${number}</h2>
+          <p>This is where Trick ${number}'s game or animation will go.</p>
+          <button onclick="navigate('tricks')">🔙 Back to Tricks</button>
+        </section>
+      `;
+    }
+  </script>
+</body>
+</html>
