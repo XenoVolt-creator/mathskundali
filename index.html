@@ -29,6 +29,8 @@
         <div class="card"><strong>Magic Trick 2</strong><br><button onclick="showTrick(2)">Play the Trick</button></div>
         <div class="card"><strong>Magic Trick 3</strong><br><button onclick="showTrick(3)">Play the Trick</button></div>
         <div class="card"><strong>Magic Trick 4</strong><br><button onclick="showTrick(4)">Play the Trick</button></div>
+        <div class="card"><strong>Magic Trick 5</strong><br><button onclick="showTrick(5)">Play the Trick</button></div>
+        <div class="card"><strong>Magic Trick 6</strong><br><button onclick="showTrick(6)">Play the Trick</button></div>
       </div>
     </section>
 
@@ -84,12 +86,44 @@
     }
 
     function showTrick(number) {
-      mainContent.innerHTML = `
-        <section class="trick">
-          <h2>Magic Trick ${number}</h2>
-          <p>This is where Trick ${number}'s game or animation will go.</p>
-          <button onclick="navigate('tricks')">🔙 Back to Tricks</button>
-        </section>
+      if (number === 1) {
+        mainContent.innerHTML = `
+          <section class="trick centered">
+            <h2>🔮 Magic Trick 1</h2>
+            <p>Think of any number, enter it below, and witness the magic!</p>
+
+            <input type="number" id="user-number" placeholder="Enter your number" />
+            <button onclick="predictFive()">✨ Predict</button>
+
+            <div id="magic-result" class="big-result"></div>
+
+            <button onclick="navigate('tricks')" class="back-btn">← Back to Tricks</button>
+          </section>
+        `;
+      } else {
+        mainContent.innerHTML = `
+          <section class="trick">
+            <h2>Magic Trick ${number}</h2>
+            <p>This is where Trick ${number}'s game or animation will go.</p>
+            <button onclick="navigate('tricks')">🔙 Back to Tricks</button>
+          </section>
+        `;
+      }
+    }
+
+    function predictFive() {
+      const input = document.getElementById("user-number").value;
+      const original = Number(input);
+
+      const resultBox = document.getElementById("magic-result");
+
+      if (isNaN(original) || input === "") {
+        resultBox.innerHTML = `<p>Please enter a valid number!</p>`;
+        return;
+      }
+
+      resultBox.innerHTML = `
+        <h3>🎉 I predict your result is... <span style="color:#61dafb; font-size:2rem;">5</span>!</h3>
       `;
     }
   </script>
