@@ -102,3 +102,49 @@ footer {
   background-color: #101529;
   color: #888;
 }
+
+/* ==== Trick 1 UI === */
+.trick.centered {
+  background-color: #0d1b2a;
+  padding: 2rem;
+  border-radius: 16px;
+  text-align: center;
+  color: #ffffff;
+  max-width: 450px;
+  margin: 3rem auto;
+  box-shadow: 0 0 25px rgba(97, 218, 251, 0.3);
+}
+
+input[type="number"] {
+  padding: 0.8rem;
+  font-size: 1rem;
+  border-radius: 10px;
+  border: none;
+  margin: 1rem 0;
+  width: 80%;
+  max-width: 300px;
+  text-align: center;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+}
+
+.trick button {
+  padding: 0.7rem 1.5rem;
+  font-size: 1rem;
+  margin: 0.5rem;
+  border: none;
+  border-radius: 8px;
+  background-color: #61dafb;
+  color: #000;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.trick button:hover {
+  background-color: #21a1f1;
+}
+
+.big-result {
+  margin-top: 1.2rem;
+  font-size: 1.3rem;
+  color: #61dafb;
+}
