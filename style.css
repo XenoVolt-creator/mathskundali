@@ -148,3 +148,13 @@ input[type="number"] {
   font-size: 1.3rem;
   color: #61dafb;
 }
+
+.explanation-steps {
+  margin-top: 1rem;
+  font-size: 1.05rem;
+  color: #ccccff;
+  text-align: left;
+  max-width: 350px;
+  margin-left: auto;
+  margin-right: auto;
+}
