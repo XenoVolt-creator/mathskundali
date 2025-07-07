@@ -19,26 +19,7 @@
     </nav>
   </header>
 
-  <main id="main-content">
-    <!-- Default Home Section -->
-    <section class="hero">
-      <h2>Unlocking the Magic of Numbers</h2>
-      <p>Welcome to Mathskundali, where we blend mathematical prediction with magic!</p>
-      <div class="tricks">
-        <div class="card"><strong>Magic Trick 1</strong><br><button onclick="showTrick(1)">Play the Trick</button></div>
-        <div class="card"><strong>Magic Trick 2</strong><br><button onclick="showTrick(2)">Play the Trick</button></div>
-        <div class="card"><strong>Magic Trick 3</strong><br><button onclick="showTrick(3)">Play the Trick</button></div>
-        <div class="card"><strong>Magic Trick 4</strong><br><button onclick="showTrick(4)">Play the Trick</button></div>
-        <div class="card"><strong>Magic Trick 5</strong><br><button onclick="showTrick(5)">Play the Trick</button></div>
-        <div class="card"><strong>Magic Trick 6</strong><br><button onclick="showTrick(6)">Play the Trick</button></div>
-      </div>
-    </section>
-
-    <section class="about">
-      <h2>About Us</h2>
-      <p>We’re passionate about math and its mystical power. Mathskundali features 6 magic-based tricks to amaze and teach.</p>
-    </section>
-  </main>
+  <main id="main-content"></main>
 
   <footer>
     <p>&copy; 2025 Mathskundali. All rights reserved.</p>
@@ -62,24 +43,19 @@
               <div class="card"><strong>Magic Trick 6</strong><br><button onclick="showTrick(6)">Play the Trick</button></div>
             </div>
           </section>
-
-          <section class="about">
-            <h2>About Us</h2>
-            <p>We’re passionate about math and its mystical power. Mathskundali features 6 magic-based tricks to amaze and teach.</p>
-          </section>
-        `;
-      } else if (view === 'explanations') {
-        mainContent.innerHTML = `
-          <section class="explanations">
-            <h2>Explanations</h2>
-            <p>Each trick you see here uses clever math logic. More detailed breakdowns will be added soon!</p>
-          </section>
         `;
       } else if (view === 'about') {
         mainContent.innerHTML = `
           <section class="about">
             <h2>About Us</h2>
             <p>We’re a group of students passionate about the mystical beauty of math. Mathskundali is our attempt to bring prediction and fun together through numbers.</p>
+          </section>
+        `;
+      } else if (view === 'explanations') {
+        mainContent.innerHTML = `
+          <section class="explanations">
+            <h2>Explanations</h2>
+            <p>Each trick uses clever math logic. Detailed steps are inside each trick section (only if you ask 😉).</p>
           </section>
         `;
       }
@@ -89,43 +65,184 @@
       if (number === 1) {
         mainContent.innerHTML = `
           <section class="trick centered">
-            <h2>🔮 Magic Trick 1</h2>
+            <h2>Magic Trick 1 – The Number is Always 5!</h2>
             <p>Think of any number, enter it below, and witness the magic!</p>
-
             <input type="number" id="user-number" placeholder="Enter your number" />
             <button onclick="predictFive()">✨ Predict</button>
-
             <div id="magic-result" class="big-result"></div>
-
+            <div id="explanation-link" style="margin-top: 1rem;"></div>
+            <div id="explanation-box" class="explanation-steps"></div>
+            <button onclick="navigate('tricks')" class="back-btn">← Back to Tricks</button>
+          </section>
+        `;
+      } else if (number === 4) {
+        mainContent.innerHTML = `
+          <section class="trick centered">
+            <h2>Magic Trick 4 – I Know Your Height!</h2>
+            <p>Think of your height (in cm), do some secret steps, and enter your final number here:</p>
+            <input type="number" id="height-final-number" placeholder="Enter your final number" />
+            <button onclick="revealHeight()">📏 Reveal Height</button>
+            <div id="height-result" class="big-result"></div>
+            <div id="height-explanation" class="explanation-steps"></div>
+            <button onclick="navigate('tricks')" class="back-btn">← Back to Tricks</button>
+          </section>
+        `;
+      } else if (number === 5) {
+        mainContent.innerHTML = `
+          <section class="trick centered">
+            <h2>Magic Trick 5 – I Know Your Phone Number</h2>
+            <p>Enter the final number you got after the steps and your birth year:</p>
+            <input type="number" id="phone-final" placeholder="Enter final number" /><br><br>
+            <input type="number" id="phone-year" placeholder="Enter birth year (e.g. 2008)" />
+            <button onclick="revealPhone()">📱 Reveal Phone Number</button>
+            <div id="phone-result" class="big-result"></div>
+            <div id="phone-explanation" class="explanation-steps"></div>
             <button onclick="navigate('tricks')" class="back-btn">← Back to Tricks</button>
           </section>
         `;
       } else {
         mainContent.innerHTML = `
-          <section class="trick">
+          <section class="trick centered">
             <h2>Magic Trick ${number}</h2>
-            <p>This is where Trick ${number}'s game or animation will go.</p>
-            <button onclick="navigate('tricks')">🔙 Back to Tricks</button>
+            <p>This trick is coming soon!</p>
+            <button onclick="navigate('tricks')">← Back to Tricks</button>
           </section>
         `;
       }
     }
 
+    // Trick 1 – Always 5
     function predictFive() {
       const input = document.getElementById("user-number").value;
       const original = Number(input);
-
       const resultBox = document.getElementById("magic-result");
+      const linkBox = document.getElementById("explanation-link");
+      const stepsBox = document.getElementById("explanation-box");
 
       if (isNaN(original) || input === "") {
         resultBox.innerHTML = `<p>Please enter a valid number!</p>`;
+        linkBox.innerHTML = "";
+        stepsBox.innerHTML = "";
         return;
       }
 
-      resultBox.innerHTML = `
-        <h3>🎉 I predict your result is... <span style="color:#61dafb; font-size:2rem;">5</span>!</h3>
+      resultBox.innerHTML = `<h3>I predict your result is... <span style="color:#61dafb; font-size:2rem;">5</span>!</h3>`;
+      linkBox.innerHTML = `<a href="#" onclick="showExplanation(${original})" style="color:#61dafb; text-decoration: underline;">Want to know how?</a>`;
+      stepsBox.innerHTML = "";
+    }
+
+    function showExplanation(num) {
+      const step1 = num * 2;
+      const step2 = step1 + 10;
+      const step3 = step2 / 2;
+      const final = step3 - num;
+
+      document.getElementById("explanation-box").innerHTML = `
+        <div style="margin-top: 1rem;">
+          <p>Step 1: ${num} × 2 = ${step1}</p>
+          <p>Step 2: +10 → ${step2}</p>
+          <p>Step 3: ÷2 → ${step3}</p>
+          <p>Step 4: − ${num} = <strong>${final}</strong></p>
+        </div>
       `;
     }
+
+    // Trick 4 – Height
+    function revealHeight() {
+      const input = document.getElementById("height-final-number").value;
+      const final = Number(input);
+      const resultDiv = document.getElementById("height-result");
+      const explainDiv = document.getElementById("height-explanation");
+
+      if (isNaN(final) || input === "") {
+        resultDiv.innerHTML = `<p>Please enter a valid number!</p>`;
+        explainDiv.innerHTML = "";
+        return;
+      }
+
+      const heightCm = final;
+      const heightInches = heightCm / 2.54;
+      const feet = Math.floor(heightInches / 12);
+      const inches = Math.round(heightInches % 12);
+
+      resultDiv.innerHTML = `
+        <h3>Your height is approximately <strong>${heightCm} cm</strong></h3>
+        <p>That's around <strong>${feet} ft ${inches} in</strong></p>
+      `;
+
+      explainDiv.innerHTML = `
+        <p style="margin-top: 1rem;"><a href="#" onclick="showHeightSteps(${heightCm})" style="color:#61dafb; text-decoration: underline;">Want to know how?</a></p>
+      `;
+    }
+
+    function showHeightSteps(height) {
+      const step1 = height * 2;
+      const step2 = step1 + 10;
+      const step3 = step2 * 5;
+      const step4 = step3 - 50;
+      const final = step4 / 10;
+
+      document.getElementById("height-explanation").innerHTML = `
+        <div style="margin-top: 1rem;">
+          <p>Step 1: ${height} × 2 = ${step1}</p>
+          <p>Step 2: +10 → ${step2}</p>
+          <p>Step 3: ×5 → ${step3}</p>
+          <p>Step 4: −50 → ${step4}</p>
+          <p>Step 5: ÷10 → <strong>${final}</strong></p>
+        </div>
+      `;
+    }
+
+    // Trick 5 – Phone Number from Final Number
+    function revealPhone() {
+      const final = Number(document.getElementById("phone-final").value);
+      const year = Number(document.getElementById("phone-year").value);
+      const resultBox = document.getElementById("phone-result");
+      const explainBox = document.getElementById("phone-explanation");
+
+      if (!final || !year || isNaN(final) || isNaN(year)) {
+        resultBox.innerHTML = `<p>Please enter valid values!</p>`;
+        explainBox.innerHTML = "";
+        return;
+      }
+
+      const step1 = final * 2;
+      const step2 = step1 + 5;
+      const step3 = step2 * 50 ;
+      const step4 = step3 + 1773;
+      const step5 = step4 - year
+      const phone = Math.floor(step5/100);
+
+      resultBox.innerHTML = `<h3>📞 Your phone number is <strong>${phone}</strong></h3>`;
+      explainBox.innerHTML = `
+        <p style="margin-top: 1rem;">
+          <a href="#" onclick="showPhoneSteps(${final}, ${year})" style="color:#61dafb; text-decoration: underline;">Want to know how?</a>
+        </p>
+      `;
+    }
+
+    function showPhoneSteps(final, year) {
+      const step1 = final * 2;
+      const step2 = step1 + 5;
+      const step3 = step2 * 50;
+      const step4 = step3 + 1773;
+      const step5 = step4 -year;
+      const phone = Math.floor(step5 / 100);
+
+      document.getElementById("phone-explanation").innerHTML = `
+        <div style="margin-top: 1rem;">
+          <p>Final Number: ${final}</p>
+          <p>Step 1: Multiply by 2 → ${final} * 2 = ${step1}</p>
+          <p>Step 2: Add answer by 5 → ${step1} + 5 = ${step2}</p>
+          <p>Step 3: Multiply answer by 50 → ${step2} * 50 = ${step3}</p>
+          <p>Step 4: Add 1773 → ${step3} + 1773 = ${step4}</p>
+          <p>Step 5: Subtract the year → ${step4} - ${year} = <strong>${phone}</strong></p>
+        </div>
+      `;
+    }
+
+    // Load home on page open
+    navigate('home');
   </script>
 </body>
 </html>
