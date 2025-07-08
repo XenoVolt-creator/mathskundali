@@ -207,3 +207,48 @@ input[type="number"] {
   100% { width: 100%; }
 }
 
+.category-buttons {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.category-buttons button {
+  background: linear-gradient(145deg, #1f1f3b, #1c1c33);
+  color: #fff;
+  padding: 12px 24px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(97, 218, 251, 0.2);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+}
+
+.category-buttons button:hover {
+  background: #202040;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(97, 218, 251, 0.4);
+}
+
+.category-buttons button::before {
+  content: '';
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 8px;
+  vertical-align: middle;
+  background-color: #61dafb; /* bright green for simple */
+}
+
+button[data-type="hard"]::before {
+  background-color: #ff4d4d; /* red for hard */
+}
+
+button[data-type="complex"]::before {
+  background-color: #b366ff; /* purple for complex */
+}
