@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Mathskundali</title>
   <link rel="stylesheet" href="style.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/nepali-date-converter@2.2.0/dist/nepali-date-converter.min.js"></script>
+
   <style>
     body {
       background: linear-gradient(to bottom, #0f0f1c, #1a1a2f);
@@ -210,13 +212,101 @@
             <button onclick="showTrickCategory('complex')" class="back-btn">← Back to Tricks</button>
           </section>
         `;
-      } else {
-        mainContent.innerHTML = `
-          <section class="trick-details">
-            <h2>Work in progress</h2>
-            <p>This trick is still being developed.</p>
-            <button onclick="navigate('home')" class="back-btn">← Back to Categories</button>
-          </section>
+      } else if (id === 8) {
+  mainContent.innerHTML = `
+    <section class="trick-details">
+      <h2 style="color:#61dafb">Zeller’s Formula - Day of the Week Calculator</h2>
+
+      <p>Enter your birth date in BS (Bikram Sambat) to convert to AD and find the day of the week:</p>
+
+      <div class="card dob-calc">
+        <label for="bs-year">BS Year:</label>
+        <input type="number" id="bs-year" placeholder="2079" min="1900" max="2100" />
+        <label for="bs-month">BS Month:</label>
+        <input type="number" id="bs-month" placeholder="1-12" min="1" max="12" />
+        <label for="bs-day">BS Day:</label>
+        <input type="number" id="bs-day" placeholder="1-32" min="1" max="32" />
+        <button class="neon-btn" id="convert-bs-to-ad">Convert BS to AD</button>
+      </div>
+
+      <div class="card dob-calc" style="margin-top:20px;">
+        <label for="ad-year">AD Year:</label>
+        <input type="number" id="ad-year" placeholder="2023" />
+        <label for="ad-month">AD Month:</label>
+        <input type="number" id="ad-month" placeholder="1-12" min="1" max="12" />
+        <label for="ad-day">AD Day:</label>
+        <input type="number" id="ad-day" placeholder="1-31" min="1" max="31" />
+        <button class="neon-btn" id="calculate-day">Calculate Day of Week</button>
+      </div>
+
+      <div id="zellers-result" class="dob-output" style="margin-top:20px; font-weight:bold; font-size:1.2em;"></div>
+
+      <button onclick="showTrickCategory('complex')" class="back-btn" style="margin-top:30px;">← Back to Tricks</button>
+    </section>
+  `;
+
+  // Zeller's Formula function
+  function zellersFormula(day, month, year) {
+    if (month < 3) {
+      month += 12;
+      year -= 1;
+    }
+    const K = year % 100;
+    const J = Math.floor(year / 100);
+    const h = (day + Math.floor((13 * (month + 1)) / 5) + K + Math.floor(K / 4) + Math.floor(J / 4) + (5 * J)) % 7;
+    const days = ["Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+    return days[h];
+  }
+
+  // Use library for accurate BS → AD conversion
+ document.getElementById('convert-bs-to-ad').addEventListener('click', () => {
+  const bsYear = parseInt(document.getElementById('bs-year').value);
+  const bsMonth = parseInt(document.getElementById('bs-month').value);
+  const bsDay = parseInt(document.getElementById('bs-day').value);
+
+  if (isNaN(bsYear) || isNaN(bsMonth) || isNaN(bsDay)) {
+    alert("Please enter valid BS date values.");
+    return;
+  }
+
+  try {
+    const bsDate = new window.NepaliDateConverter.NepaliDate(bsYear, bsMonth, bsDay);
+    const adDate = bsDate.toJsDate(); // returns a native JS Date object
+
+    document.getElementById('ad-year').value = adDate.getFullYear();
+    document.getElementById('ad-month').value = adDate.getMonth() + 1;
+    document.getElementById('ad-day').value = adDate.getDate();
+
+    document.getElementById('zellers-result').textContent =
+      `Converted AD Date: ${adDate.getFullYear()}-${adDate.getMonth() + 1}-${adDate.getDate()}`;
+  } catch (e) {
+    alert("Conversion failed. Make sure the BS date is correct.");
+  }
+});
+
+
+  // Calculate AD Day of Week
+  document.getElementById('calculate-day').addEventListener('click', () => {
+    const adYear = parseInt(document.getElementById('ad-year').value);
+    const adMonth = parseInt(document.getElementById('ad-month').value);
+    const adDay = parseInt(document.getElementById('ad-day').value);
+
+    if (isNaN(adYear) || isNaN(adMonth) || isNaN(adDay)) {
+      alert("Please enter valid AD date values.");
+      return;
+    }
+
+    const dayName = zellersFormula(adDay, adMonth, adYear);
+    document.getElementById('zellers-result').textContent = `The day of the week is: ${dayName}`;
+  });
+  
+   }  else  {
+      mainContent.innerHTML = `
+        <section class="trick-details">
+          <h2>Work in progress</h2>
+          <p>This trick is still being developed.</p>
+          <button onclick="navigate('home')" class="back-btn">← Back to Categories</button>
+        </section>
         `;
       }
     }
