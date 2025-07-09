@@ -44,35 +44,24 @@
       color: #fff;
       transform: scale(1.05);
     }
-    .trick-category {
-      text-align: left;
-      max-width: 600px;
-      margin: 0 auto;
-      background: #1a1a2f;
-      padding: 20px;
-      border-radius: 10px;
-      color: #eee;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-    }
     .tricks-grid {
-  display: flex;
-  gap: 20px;
-  overflow-x: auto;
-  padding: 20px;
-  scroll-snap-type: x mandatory;
-}
-.card {
-  flex: 0 0 auto;
-  min-width: 250px;
-  scroll-snap-align: start;
-  background: #21213a;
-  padding: 15px;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-  color: #fff;
-  text-align: center;
-}
-
+      display: flex;
+      gap: 20px;
+      overflow-x: auto;
+      padding: 20px;
+      scroll-snap-type: x mandatory;
+    }
+    .card {
+      flex: 0 0 auto;
+      min-width: 250px;
+      scroll-snap-align: start;
+      background: #21213a;
+      padding: 15px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      color: #fff;
+      text-align: center;
+    }
     .card button {
       margin-top: 10px;
       padding: 8px 16px;
@@ -87,25 +76,47 @@
       background-color: #4fb3d4;
     }
     .back-btn {
-  background: none;
-  border: none;
-  color: #61dafb;
-  font-size: 1rem;
-  cursor: pointer;
-  margin-top: 20px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 15px;
-  border-radius: 6px;
-  transition: background 0.2s ease;
-}
-
-.back-btn:hover {
-  background-color: rgba(97, 218, 251, 0.1);
-  color: #ffffff;
-}
-
+      background: none;
+      border: none;
+      color: #61dafb;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-top: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 15px;
+      border-radius: 6px;
+      transition: background 0.2s ease;
+    }
+    .back-btn:hover {
+      background-color: rgba(97, 218, 251, 0.1);
+      color: #ffffff;
+    }
+    .trick-details input {
+      padding: 10px;
+      width: 80%;
+      max-width: 300px;
+      margin-top: 10px;
+      border-radius: 6px;
+      border: none;
+    }
+    .trick-details button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      background: #61dafb;
+      border: none;
+      border-radius: 6px;
+      color: #000;
+      cursor: pointer;
+    }
+    .trick-details {
+      padding: 20px;
+    }
+    #dob-breakdown {
+      font-size: 0.95rem;
+      color: #ccc;
+    }
   </style>
 </head>
 <body>
@@ -158,18 +169,16 @@
           <section class="about">
             <h2>About Us</h2>
             <p>We’re a group of students passionate about the mystical beauty of math. Mathskundali is our attempt to bring prediction and fun together through numbers. Our team — <strong>Bisaj Khadka</strong>, <strong>Yubaraj Yadav</strong>, and <strong>Samuel Aryal</strong> — created <strong>Mathskundali</strong> to show how math can surprise, predict, and entertain!</p>
-            <p>Through 6 mind-blowing tricks, we’ve blended logic, numbers, and curiosity into one fun experience. Whether you're a math lover or a curious visitor, Mathskundali has something magical for you!</p>
           </section>
         `;
       } else if (view === 'explanations') {
         mainContent.innerHTML = `
           <section class="explanations">
             <h2>Explanations</h2>
-            <p>This section includes detailed steps for all the math tricks performed during our exhibition.</p>
             <ul>
               <li><strong>Simple Tricks:</strong> Always 5, Age Prediction, Birthday Day</li>
               <li><strong>Hard Tricks:</strong> Height Trick, Phone Number Reveal</li>
-              <li><strong>Complex Tricks:</strong> ATM PIN Guess, Zeller’s Algorithm</li>
+              <li><strong>Complex Tricks:</strong> I Know Your DOB, Zeller's Formula, ISO Week</li>
             </ul>
           </section>
         `;
@@ -182,33 +191,29 @@
           title: "Simple Tricks",
           tricks: [
             { id: 1, name: "The Number is Always 5" },
-            { id: 2, name: "I Know Your Full Date of Birth" },
-            { id: 7, name: "Magic Age Trick" },
-            { id: 8, name: "Predict Final Number" }
+            { id: 2, name: "Magic Age Trick" },
+            { id: 3, name: "Birthday Final Number" }
           ]
         },
         hard: {
           title: "Hard Tricks",
           tricks: [
-            { id: 3, name: "I Know the Day You Were Born" },
-            { id: 4, name: "I Know Your Height" },
-            { id: 9, name: "Birthday Number Pattern" },
-            { id: 10, name: "Predict Missing Number" }
+            { id: 4, name: "Phone Number Reveal" },
+            { id: 5, name: "Predict Your Height" },
+            { id: 6, name: "Birthday Number Pattern" }
           ]
         },
         complex: {
           title: "Complex Tricks",
           tricks: [
-            { id: 5, name: "I Know Your Phone Number" },
-            { id: 6, name: "I Can Guess Your ATM PIN" },
-            { id: 11, name: "Guess 2-digit Number in 3 Steps" },
-            { id: 12, name: "Magic Box Sum Puzzle" }
+            { id: 7, name: "🔮 The Number That Reveals Your DOB" },
+            { id: 8, name: "Zeller’s Formula" },
+            { id: 9, name: "ISO Week Number" }
           ]
         }
       };
 
       const selected = categories[type];
-
       let trickCards = selected.tricks.map(trick => `
         <div class="card">
           <strong>${trick.name}</strong><br>
@@ -220,80 +225,65 @@
         <section class="tricks">
           <h2>${selected.title}</h2>
           <div class="tricks-grid">${trickCards}</div>
-          <button onclick="navigate('home')" class="back-btn">
-          <span style="font-size: 1.2rem; margin-right: 8px;">←</span>
-          <span style="font-size: 1rem;">Back to Categories</span>
-        </button>
-
-          
-        </section>
-      `;
-    }
-
-     function showTrick(id) {
-    const tricks = {
-      1: {
-        title: "The Number is Always 5",
-        description: "Ask the person to follow a series of steps that leads them to always end at 5.",
-        steps: [
-          "Think of a number.",
-          "Multiply it by 2.",
-          "Add 10.",
-          "Divide by 2.",
-          "Subtract the original number.",
-          "Your result is 5!"
-        ]
-      },
-      2: {
-        title: "I Know Your Full Date of Birth",
-        description: "This trick uses clever math to determine someone's birth date.",
-        steps: [
-          "Ask the person to multiply their birth month by 5.",
-          "Add 6.",
-          "Multiply the result by 4.",
-          "Add 9.",
-          "Multiply by 5 again.",
-          "Add their birth date.",
-          "Subtract 165.",
-          "Now you can tell their month and date from the final number."
-        ]
-      },
-      3: {
-        title: "I Know the Day You Were Born",
-        description: "Uses Zeller's algorithm to calculate the day from birth date.",
-        steps: [
-          "Ask for the date, month, and year.",
-          "Apply Zeller’s formula to calculate the weekday.",
-          "Reveal the exact day they were born!"
-        ]
-      },
-      // Add other tricks (4 to 12) the same way if needed
-    };
-
-    const trick = tricks[id];
-
-    if (!trick) {
-      mainContent.innerHTML = `
-        <section class="trick-error">
-          <h2>Oops!</h2>
-          <p>Trick not available yet. Please try another one.</p>
           <button onclick="navigate('home')" class="back-btn">← Back to Categories</button>
         </section>
       `;
-      return;
     }
 
-    const stepsHTML = trick.steps.map((step, index) => `<li><strong>Step ${index + 1}:</strong> ${step}</li>`).join("");
+    function showTrick(id) {
+      if (id === 7) {
+        mainContent.innerHTML = `
+          <section class="trick-details">
+            <h2 style="color:#61dafb">🔮 The Number That Reveals Your Date of Birth</h2>
+            <p>This magical trick uses a secret number <strong>7919</strong> to uncover your full date of birth!</p>
+            <div style="margin: 20px 0; background: #1f1f2b; padding: 15px; border-radius: 10px;">
+              <h3>🧮 Instructions:</h3>
+              <ol>
+                <li>Multiply your <strong>day</strong> by 10000 and add your <strong>month</strong> by 100</li>
+                <li>Add them</li>
+                <li>Add the last two digits of your <strong>year</strong></li>
+                <li>Multiply the final number by <strong>7919</strong></li>
+                <li> enter the whole number below 👇</li>
+              </ol>
+            </div>
+            <input type="number" id="magic-dob-number" placeholder="Enter final number here..." />
+            <button onclick="decodeDOB()">🔓 Reveal My Date of Birth</button>
+            <div id="dob-reveal" style="margin-top: 1rem;"></div>
+            <div id="dob-breakdown" style="margin-top: 1rem;"></div>
+            <button onclick="showTrickCategory('complex')" class="back-btn">← Back to Tricks</button>
+          </section>
+        `;
+      } else {
+        mainContent.innerHTML = `
+          <section class="trick-details">
+            <h2>Work in progress</h2>
+            <p>This trick is still being developed.</p>
+            <button onclick="navigate('home')" class="back-btn">← Back to Categories</button>
+          </section>
+        `;
+      }
+    }
 
-    mainContent.innerHTML = `
-      <section class="trick-details">
-        <h2>${trick.title}</h2>
-        <p>${trick.description}</p>
-        <ul>${stepsHTML}</ul>
-        <button onclick="navigate('home')" class="back-btn">← Back to Categories</button>
-      </section>
-    `;
-  }
+    function decodeDOB() {
+      const input = Number(document.getElementById("magic-dob-number").value);
+      const resultBox = document.getElementById("dob-reveal");
+      const breakdownBox = document.getElementById("dob-breakdown");
+
+      if (!input || isNaN(input) || input < 1000000) {
+        resultBox.innerHTML = `<p>Please enter a valid number (usually over 1 million).</p>`;
+        breakdownBox.innerHTML = "";
+        return;
+      }
+
+      const decoded = input / 7919;
+      const year = decoded % 100;
+      const month = Math.floor((decoded /100)%100 );
+      const day = Math.floor(decoded / 10000);
+
+      resultBox.innerHTML = `
+        <h3>🎉 Your Date of Birth: <strong>${day}/${month}/${year}</strong></h3>
+      `;
+    }
 
     document.addEventListener("DOMContentLoaded", () => {
       setTimeout(() => {
