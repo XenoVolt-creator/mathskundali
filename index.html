@@ -54,6 +54,58 @@
       color: #eee;
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
     }
+    .tricks-grid {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  padding: 20px;
+  scroll-snap-type: x mandatory;
+}
+.card {
+  flex: 0 0 auto;
+  min-width: 250px;
+  scroll-snap-align: start;
+  background: #21213a;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  color: #fff;
+  text-align: center;
+}
+
+    .card button {
+      margin-top: 10px;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 6px;
+      background-color: #61dafb;
+      color: #000;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .card button:hover {
+      background-color: #4fb3d4;
+    }
+    .back-btn {
+  background: none;
+  border: none;
+  color: #61dafb;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 15px;
+  border-radius: 6px;
+  transition: background 0.2s ease;
+}
+
+.back-btn:hover {
+  background-color: rgba(97, 218, 251, 0.1);
+  color: #ffffff;
+}
+
   </style>
 </head>
 <body>
@@ -95,18 +147,17 @@
             <h2>Unlocking the Magic of Numbers</h2>
             <p>Welcome to Mathskundali, where we blend mathematical prediction with magic!</p>
             <div class="category-buttons">
-              <button onclick="showCategory('simple')">Simple Tricks</button>
-              <button onclick="showCategory('hard')">Hard Tricks</button>
-              <button onclick="showCategory('complex')">Complex Tricks</button>
+              <button onclick="showTrickCategory('simple')">Simple Tricks</button>
+              <button onclick="showTrickCategory('hard')">Hard Tricks</button>
+              <button onclick="showTrickCategory('complex')">Complex Tricks</button>
             </div>
-            <div id="category-content" class="trick-category"></div>
           </section>
         `;
       } else if (view === 'about') {
         mainContent.innerHTML = `
           <section class="about">
             <h2>About Us</h2>
-            <p>We’re a group of students passionate about the mystical beauty of math. Mathskundali is our attempt to bring prediction and fun together through numbers.Our team — <strong>Bisaj Khadka</strong>, <strong>Yubaraj Yadav</strong>, and <strong>Samuel Aryal</strong> — created <strong>Mathskundali</strong> to show how math can surprise, predict, and entertain!</p>
+            <p>We’re a group of students passionate about the mystical beauty of math. Mathskundali is our attempt to bring prediction and fun together through numbers. Our team — <strong>Bisaj Khadka</strong>, <strong>Yubaraj Yadav</strong>, and <strong>Samuel Aryal</strong> — created <strong>Mathskundali</strong> to show how math can surprise, predict, and entertain!</p>
             <p>Through 6 mind-blowing tricks, we’ve blended logic, numbers, and curiosity into one fun experience. Whether you're a math lover or a curious visitor, Mathskundali has something magical for you!</p>
           </section>
         `;
@@ -125,54 +176,124 @@
       }
     }
 
-   function showTrickCategory(type) {
-  const categories = {
-    simple: {
-      title: "Simple Tricks",
-      tricks: [
-        { id: 1, name: "The Number is Always 5" },
-        { id: 2, name: "I Know Your Full Date of Birth" },
-        { id: 7, name: "Magic Age Trick" },
-        { id: 8, name: "Predict Final Number" }
-      ]
-    },
-    hard: {
-      title: "Hard Tricks",
-      tricks: [
-        { id: 3, name: "I Know the Day You Were Born" },
-        { id: 4, name: "I Know Your Height" },
-        { id: 9, name: "Birthday Number Pattern" },
-        { id: 10, name: "Predict Missing Number" }
-      ]
-    },
-    complex: {
-      title: "Complex Tricks",
-      tricks: [
-        { id: 5, name: "I Know Your Phone Number" },
-        { id: 6, name: "I Can Guess Your ATM PIN" },
-        { id: 11, name: "Guess 2-digit Number in 3 Steps" },
-        { id: 12, name: "Magic Box Sum Puzzle" }
-      ]
+    function showTrickCategory(type) {
+      const categories = {
+        simple: {
+          title: "Simple Tricks",
+          tricks: [
+            { id: 1, name: "The Number is Always 5" },
+            { id: 2, name: "I Know Your Full Date of Birth" },
+            { id: 7, name: "Magic Age Trick" },
+            { id: 8, name: "Predict Final Number" }
+          ]
+        },
+        hard: {
+          title: "Hard Tricks",
+          tricks: [
+            { id: 3, name: "I Know the Day You Were Born" },
+            { id: 4, name: "I Know Your Height" },
+            { id: 9, name: "Birthday Number Pattern" },
+            { id: 10, name: "Predict Missing Number" }
+          ]
+        },
+        complex: {
+          title: "Complex Tricks",
+          tricks: [
+            { id: 5, name: "I Know Your Phone Number" },
+            { id: 6, name: "I Can Guess Your ATM PIN" },
+            { id: 11, name: "Guess 2-digit Number in 3 Steps" },
+            { id: 12, name: "Magic Box Sum Puzzle" }
+          ]
+        }
+      };
+
+      const selected = categories[type];
+
+      let trickCards = selected.tricks.map(trick => `
+        <div class="card">
+          <strong>${trick.name}</strong><br>
+          <button onclick="showTrick(${trick.id})">Play the Trick</button>
+        </div>
+      `).join("");
+
+      mainContent.innerHTML = `
+        <section class="tricks">
+          <h2>${selected.title}</h2>
+          <div class="tricks-grid">${trickCards}</div>
+          <button onclick="navigate('home')" class="back-btn">
+          <span style="font-size: 1.2rem; margin-right: 8px;">←</span>
+          <span style="font-size: 1rem;">Back to Categories</span>
+        </button>
+
+          
+        </section>
+      `;
     }
-  };
 
-  const selected = categories[type];
+     function showTrick(id) {
+    const tricks = {
+      1: {
+        title: "The Number is Always 5",
+        description: "Ask the person to follow a series of steps that leads them to always end at 5.",
+        steps: [
+          "Think of a number.",
+          "Multiply it by 2.",
+          "Add 10.",
+          "Divide by 2.",
+          "Subtract the original number.",
+          "Your result is 5!"
+        ]
+      },
+      2: {
+        title: "I Know Your Full Date of Birth",
+        description: "This trick uses clever math to determine someone's birth date.",
+        steps: [
+          "Ask the person to multiply their birth month by 5.",
+          "Add 6.",
+          "Multiply the result by 4.",
+          "Add 9.",
+          "Multiply by 5 again.",
+          "Add their birth date.",
+          "Subtract 165.",
+          "Now you can tell their month and date from the final number."
+        ]
+      },
+      3: {
+        title: "I Know the Day You Were Born",
+        description: "Uses Zeller's algorithm to calculate the day from birth date.",
+        steps: [
+          "Ask for the date, month, and year.",
+          "Apply Zeller’s formula to calculate the weekday.",
+          "Reveal the exact day they were born!"
+        ]
+      },
+      // Add other tricks (4 to 12) the same way if needed
+    };
 
-  let trickCards = selected.tricks.map(trick => `
-    <div class="card">
-      <strong>${trick.name}</strong><br>
-      <button onclick="showTrick(${trick.id})">Play the Trick</button>
-    </div>
-  `).join("");
+    const trick = tricks[id];
 
-  mainContent.innerHTML = `
-    <section class="tricks">
-      <h2>${selected.title}</h2>
-      <div class="tricks-grid">${trickCards}</div>
-      <button onclick="navigate('home')" class="back-btn">← Back to Categories</button>
-    </section>
-  `;
-}
+    if (!trick) {
+      mainContent.innerHTML = `
+        <section class="trick-error">
+          <h2>Oops!</h2>
+          <p>Trick not available yet. Please try another one.</p>
+          <button onclick="navigate('home')" class="back-btn">← Back to Categories</button>
+        </section>
+      `;
+      return;
+    }
+
+    const stepsHTML = trick.steps.map((step, index) => `<li><strong>Step ${index + 1}:</strong> ${step}</li>`).join("");
+
+    mainContent.innerHTML = `
+      <section class="trick-details">
+        <h2>${trick.title}</h2>
+        <p>${trick.description}</p>
+        <ul>${stepsHTML}</ul>
+        <button onclick="navigate('home')" class="back-btn">← Back to Categories</button>
+      </section>
+    `;
+  }
 
     document.addEventListener("DOMContentLoaded", () => {
       setTimeout(() => {
