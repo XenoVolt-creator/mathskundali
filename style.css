@@ -285,3 +285,22 @@ button[data-type="complex"]::before {
   transform: scale(1.2);
   color: #ffffff;
 }
+
+.back-btn {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 20px;
+  border: none;
+  background: #2c2c3e;
+  color: #61dafb;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s;
+  box-shadow: 0 0 8px #61dafb33;
+}
+.back-btn:hover {
+  background: #383851;
+  box-shadow: 0 0 12px #61dafb66;
+}
+
