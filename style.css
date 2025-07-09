@@ -54,35 +54,53 @@ header {
   margin-bottom: 2rem;
 }
 
-.tricks {
+.tricks-grid {
   display: flex;
-  justify-content: center;
-  gap: 1.5rem;
   flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 30px;
 }
 
 .card {
-  background: #1e2448;
-  padding: 1rem 2rem;
-  border-radius: 12px;
-  box-shadow: 0 0 15px rgba(97, 218, 251, 0.2);
+  background: linear-gradient(to bottom right, #1b1b2e, #2d2d47);
+  border-radius: 16px;
+  padding: 20px 30px;
+  min-width: 200px;
   text-align: center;
+  box-shadow: 0 0 20px rgba(97, 218, 251, 0.25);
+  border: 1px solid #61dafb33;
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 0 25px rgba(97, 218, 251, 0.5);
+  transform: translateY(-6px);
+}
+
+.card strong {
+  color: #ffffff;
+  font-size: 1.2rem;
+  display: block;
+  margin-bottom: 10px;
 }
 
 .card button {
-  margin-top: 1rem;
-  padding: 0.5rem 1rem;
-  background: #61dafb;
-  color: #000;
+  background-color: #00bfff;
+  color: #0f0f1c;
   border: none;
-  border-radius: 6px;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-weight: bold;
   cursor: pointer;
   transition: background 0.3s ease;
 }
 
 .card button:hover {
-  background: #21a1f1;
+  background-color: #009acd;
+  color: white;
 }
+
 
 .about {
   padding: 3rem 2rem;
@@ -251,4 +269,19 @@ button[data-type="hard"]::before {
 
 button[data-type="complex"]::before {
   background-color: #b366ff; /* purple for complex */
+}
+
+.back-arrow {
+  position: absolute;
+  top: 80px;
+  left: 30px;
+  font-size: 2rem;
+  color: #61dafb;
+  cursor: pointer;
+  z-index: 999;
+  transition: 0.3s;
+}
+.back-arrow:hover {
+  transform: scale(1.2);
+  color: #ffffff;
 }
