@@ -1,18 +1,21 @@
 const mainContent = document.getElementById('main-content');
 
 function navigate(view) {
+  let scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+
   if (view === 'home') {
     mainContent.innerHTML = `
       <section class="hero">
         <h2>Unlocking the Magic of Numbers</h2>
         <p>Welcome to Mathskundali, where we blend mathematical prediction with magic!</p>
         <div class="category-buttons">
-          <button onclick="navigate('simple')">Simple Tricks</button>
-          <button onclick="navigate('hard')">Hard Tricks</button>
-          <button onclick="navigate('complex')">Complex Tricks</button>
+          <button onclick="navigate('simple')" data-type="simple">Simple Tricks</button>
+          <button onclick="navigate('hard')" data-type="hard">Hard Tricks</button>
+          <button onclick="navigate('complex')" data-type="complex">Complex Tricks</button>
         </div>
       </section>
     `;
+    scrollToTop();
   } else if (view === 'simple' || view === 'hard' || view === 'complex') {
     const categories = {
       simple: {
@@ -56,6 +59,7 @@ function navigate(view) {
         <button onclick="navigate('home')" class="back-btn">← Back to Categories</button>
       </section>
     `;
+    scrollToTop();
   } else if (view === 'about') {
     mainContent.innerHTML = `
       <section class="about">
@@ -64,6 +68,7 @@ function navigate(view) {
         <p>Through 6 mind-blowing tricks, we’ve blended logic, numbers, and curiosity into one fun experience. Whether you're a math lover or a curious visitor, Mathskundali has something magical for you!</p>
       </section>
     `;
+    scrollToTop();
   } else if (view === 'explanations') {
     mainContent.innerHTML = `
       <section class="explanations">
@@ -76,19 +81,18 @@ function navigate(view) {
         <p><strong>Trick 6 – I Can Guess Your ATM PIN:</strong><br>You enter your PIN and do some steps. The site applies reverse logic and shows your exact PIN. No data is stored — it’s just a fun math trick!</p><br>
       </section>
     `;
+    scrollToTop();
   }
 }
 
-
 document.addEventListener("DOMContentLoaded", () => {
-  setTimeout(() => {
-    document.getElementById("loader").style.display = "none";
+  const loader = document.getElementById("loader");
+  if (loader) {
+    setTimeout(() => {
+      loader.style.display = "none";
+      navigate('home');
+    }, 3000); // 3-second loader
+  } else {
     navigate('home');
-    <div class="category-buttons">
-  <button onclick="showTrickCategory('simple')" data-type="simple">Simple Tricks</button>
-  <button onclick="showTrickCategory('hard')" data-type="hard">Hard Tricks</button>
-  <button onclick="showTrickCategory('complex')" data-type="complex">Complex Tricks</button>
-</div>
-
-  }, 60000000);
+  }
 });
