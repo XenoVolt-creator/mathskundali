@@ -13,109 +13,47 @@
       margin: 0;
       padding: 0;
     }
-    .hero h2 {
-      font-size: 2.5rem;
-      color: #61dafb;
-      margin-bottom: 0.5rem;
-    }
-    .hero p {
-      color: #aaa;
-      font-size: 1.1rem;
-    }
-    .category-buttons {
-      display: flex;
-      gap: 15px;
-      justify-content: center;
-      margin: 20px 0;
-    }
-    .category-buttons button {
-      padding: 12px 24px;
-      font-size: 1rem;
-      border: none;
-      border-radius: 8px;
-      background: linear-gradient(145deg, #1f1f2b, #2c2c3a);
-      color: #61dafb;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-      transition: 0.3s;
-      cursor: pointer;
-    }
-    .category-buttons button:hover {
-      background: #2e2e42;
-      color: #fff;
-      transform: scale(1.05);
-    }
-    .tricks-grid {
-      display: flex;
-      gap: 20px;
-      overflow-x: auto;
-      padding: 20px;
-      scroll-snap-type: x mandatory;
-    }
-    .card {
-      flex: 0 0 auto;
-      min-width: 250px;
-      scroll-snap-align: start;
-      background: #21213a;
-      padding: 15px;
+    .card, .neon-box {
+      background: #1f1f2b;
       border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-      color: #fff;
-      text-align: center;
+      padding: 20px;
+      box-shadow: 0 0 12px #61dafb33;
+      margin-bottom: 20px;
     }
-    .card button {
-      margin-top: 10px;
-      padding: 8px 16px;
-      border: none;
-      border-radius: 6px;
-      background-color: #61dafb;
-      color: #000;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-    .card button:hover {
-      background-color: #4fb3d4;
-    }
-    .back-btn {
-      background: none;
-      border: none;
-      color: #61dafb;
-      font-size: 1rem;
-      cursor: pointer;
-      margin-top: 20px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 15px;
-      border-radius: 6px;
-      transition: background 0.2s ease;
-    }
-    .back-btn:hover {
-      background-color: rgba(97, 218, 251, 0.1);
-      color: #ffffff;
-    }
-    .trick-details input {
+    .neon-box input, .dob-calc input {
+      width: 100%;
       padding: 10px;
-      width: 80%;
-      max-width: 300px;
       margin-top: 10px;
       border-radius: 6px;
       border: none;
+      background: #2b2b3a;
+      color: #fff;
     }
-    .trick-details button {
-      margin-top: 15px;
+    .neon-btn, .copy-btn {
       padding: 10px 20px;
       background: #61dafb;
       border: none;
       border-radius: 6px;
       color: #000;
       cursor: pointer;
+      margin-top: 15px;
     }
-    .trick-details {
-      padding: 20px;
+    .copy-btn {
+      margin-left: 10px;
+      background-color: #4fb3d4;
     }
-    #dob-breakdown {
-      font-size: 0.95rem;
-      color: #ccc;
+    .neon-btn:hover, .copy-btn:hover {
+      background: #4fb3d4;
+    }
+    .dob-output {
+      background: #242438;
+      padding: 15px;
+      border-radius: 10px;
+      margin-top: 20px;
+      box-shadow: 0 0 8px #61dafb55;
+    }
+    .dob-output h3 {
+      color: #61dafb;
     }
   </style>
 </head>
@@ -235,21 +173,40 @@
         mainContent.innerHTML = `
           <section class="trick-details">
             <h2 style="color:#61dafb">🔮 The Number That Reveals Your Date of Birth</h2>
-            <p>This magical trick uses a secret number <strong>7919</strong> to uncover your full date of birth!</p>
-            <div style="margin: 20px 0; background: #1f1f2b; padding: 15px; border-radius: 10px;">
-              <h3>🧮 Instructions:</h3>
+
+            <!-- Steps -->
+            <div class="card">
+              <h3>🧮 Steps:</h3>
               <ol>
-                <li>Multiply your <strong>day</strong> by 10000 and multipy your <strong>month</strong> by 100</li>
-                <li>Add them</li>
-                <li>Add the last two digits of your <strong>year</strong></li>
-                <li>Multiply the final number by <strong>7919</strong></li>
-                <li> enter the whole number below 👇</li>
+                <li>Multiply your <strong>day</strong> by 10000</li>
+                <li>Add your <strong>month</strong> × 100</li>
+                <li>Then add the last two digits of your <strong>year</strong></li>
+                <li>Multiply the number by <strong>7919</strong></li>
+                <li> Divide the final number by <strong>100</strong></li>
               </ol>
+              <p style="color:#aaa;">Don't want to do this manually? Use the calculator below 👇</p>
             </div>
-            <input type="number" id="magic-dob-number" placeholder="Enter final number here..." />
-            <button onclick="decodeDOB()">🔓 Reveal My Date of Birth</button>
-            <div id="dob-reveal" style="margin-top: 1rem;"></div>
-            <div id="dob-breakdown" style="margin-top: 1rem;"></div>
+
+            <!-- Calculator -->
+            <div class="card dob-calc">
+              <h3>🎯 DOB to Final Number Calculator</h3>
+              <input type="number" id="calc-day" placeholder="Enter Day (e.g. 23)">
+              <input type="number" id="calc-month" placeholder="Enter Month (e.g. 5)">
+              <input type="number" id="calc-year" placeholder="Enter Year (e.g. 2004)">
+              <button class="neon-btn" onclick="calculateMagicNumber()">Calculate</button>
+              <button class="copy-btn" onclick="copyFinalNumber()">Copy Number</button>
+              <p id="calculated-output" style="margin-top:10px;"></p>
+            </div>
+
+            <!-- Reveal Box -->
+            <div class="neon-box">
+              <h3>🔓 Paste the Final Number Below</h3>
+              <input type="number" id="magic-dob-number" placeholder="Enter final number here..." />
+              <button class="neon-btn" onclick="decodeDOB()">Reveal My Date of Birth</button>
+              <div id="dob-reveal" class="dob-output"></div>
+              <div id="dob-breakdown" style="margin-top: 1rem; color:#ccc;"></div>
+            </div>
+
             <button onclick="showTrickCategory('complex')" class="back-btn">← Back to Tricks</button>
           </section>
         `;
@@ -264,6 +221,30 @@
       }
     }
 
+    function calculateMagicNumber() {
+      const day = parseInt(document.getElementById("calc-day").value);
+      const month = parseInt(document.getElementById("calc-month").value);
+      const year = parseInt(document.getElementById("calc-year").value);
+      const shortYear = year % 100;
+
+      if (isNaN(day) || isNaN(month) || isNaN(year)) {
+        document.getElementById("calculated-output").innerText = "Please enter valid numbers.";
+        return;
+      }
+
+      const baseNumber = (day * 10000) + (month * 100) + shortYear;
+      const semifinal = baseNumber * 7919;
+      const finalNumber = semifinal / 100
+
+      document.getElementById("calculated-output").innerHTML = `Final Number: <strong id="final-num">${finalNumber}</strong>`;
+    }
+
+    function copyFinalNumber() {
+  const output = document.getElementById("final-num");
+  if (!output) return;
+  navigator.clipboard.writeText(output.textContent);
+    };  
+
     function decodeDOB() {
       const input = Number(document.getElementById("magic-dob-number").value);
       const resultBox = document.getElementById("dob-reveal");
@@ -274,11 +255,12 @@
         breakdownBox.innerHTML = "";
         return;
       }
-
-      const decoded = input / 7919;
-      const year = decoded % 100;
-      const month = Math.floor((decoded /100)%100 );
-      const day = Math.floor(decoded / 10000);
+      
+      const decoded = input * 100
+      const semidecoded = decoded / 7919;
+      const year = semidecoded % 100;
+      const month = Math.floor((semidecoded /100)%100 );
+      const day = Math.floor(semidecoded / 10000);
 
       resultBox.innerHTML = `
         <h3>🎉 Your Date of Birth: <strong>${day}/${month}/${year}</strong></h3>
