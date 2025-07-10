@@ -304,3 +304,22 @@ button[data-type="complex"]::before {
   box-shadow: 0 0 12px #61dafb66;
 }
 
+.calc-buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-top: 15px;
+}
+.calc-buttons button {
+  padding: 12px;
+  font-size: 1rem;
+  background-color: #2b2b3a;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.calc-buttons button:hover {
+  background-color: #3c3c4f;
+}
+
