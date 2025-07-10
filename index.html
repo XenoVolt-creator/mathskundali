@@ -6,7 +6,8 @@
   <title>Mathskundali</title>
   <link rel="stylesheet" href="style.css"/>
   <!-- ✅ Fixed Nepali date converter script path -->
-  <script src="https://cdn.jsdelivr.net/npm/@sbmdkl/nepali-date@latest/dist/nepali-date.umd.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/nepali-date-library@1.1.3/dist/nepali-date-library.umd.js"></script>
+
   <style>
     body {
       background: linear-gradient(to bottom, #0f0f1c, #1a1a2f);
@@ -163,15 +164,76 @@
               </ol>
               <p style="color:#aaa;">Don't want to do this manually? Use the calculator below 👇</p>
             </div>
-            <div class="card dob-calc">
-              <h3>🎯 DOB to Final Number Calculator</h3>
-              <input type="number" id="calc-day" placeholder="Enter Day (e.g. 23)">
-              <input type="number" id="calc-month" placeholder="Enter Month (e.g. 5)">
-              <input type="number" id="calc-year" placeholder="Enter Year (e.g. 2004)">
-              <button class="neon-btn" onclick="calculateMagicNumber()">Calculate</button>
-              <button class="copy-btn" onclick="copyFinalNumber()">Copy Number</button>
-              <p id="calculated-output" style="margin-top:10px;"></p>
-            </div>
+    <div class="card dob-calc">
+  <h3>🧮 Manual Calculator</h3>
+  <input type="text" id="manual-display" readonly placeholder="0" />
+
+  <div class="calc-buttons">
+    <button onclick="pressKey('7')">7</button>
+    <button onclick="pressKey('8')">8</button>
+    <button onclick="pressKey('9')">9</button>
+    <button onclick="pressKey('/')">/</button>
+
+    <button onclick="pressKey('4')">4</button>
+    <button onclick="pressKey('5')">5</button>
+    <button onclick="pressKey('6')">6</button>
+    <button onclick="pressKey('*')">*</button>
+
+    <button onclick="pressKey('1')">1</button>
+    <button onclick="pressKey('2')">2</button>
+    <button onclick="pressKey('3')">3</button>
+    <button onclick="pressKey('-')">-</button>
+
+    <button onclick="pressKey('0')">0</button>
+    <button onclick="pressKey('.')">.</button>
+    <button onclick="pressKey('+')">+</button>
+    <button onclick="pressKey('(')">(</button>
+
+    <button onclick="pressKey(')')">)</button>
+    <button onclick="clearManual()">C</button>
+    <button onclick="deleteManual()">DEL</button>
+    <button onclick="calculateManual()">=</button>
+
+    <button onclick="copyManualResult()">Copy</button>
+  </div>
+</div>
+
+<style>
+  .calc-buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-top: 15px;
+  }
+  .calc-buttons button {
+    padding: 12px;
+    font-size: 1rem;
+    background-color: #2b2b3a;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  .calc-buttons button:hover {
+    background-color: #3c3c4f;
+  }
+  #manual-display {
+    width: 100%;
+    font-size: 1.2rem;
+    padding: 10px;
+    background-color: #1c1c2b;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    text-align: right;
+  }
+</style>
+
+</div>
+
+
             <div class="neon-box">
               <h3>🔓 Paste the Final Number Below</h3>
               <input type="number" id="magic-dob-number" placeholder="Enter final number here..." />
@@ -182,8 +244,9 @@
             <button onclick="showTrickCategory('complex')" class="back-btn">← Back to Tricks</button>
           </section>`;
       }
-      else if (id === 8) {
-          mainContent.innerHTML = `
+         else if (id === 8) {
+        // Trick 2: Zeller's Formula
+        mainContent.innerHTML = `
           <section class="trick-details">
             <h2 style="color:#61dafb">Zeller’s Formula - Day of the Week Calculator</h2>
             <p>Enter your birth date in BS (Bikram Sambat) to convert to AD and find the day of the week:</p>
@@ -210,36 +273,47 @@
           </section>
         `;
 
-         setTimeout(() => {
+        setTimeout(() => {
           document.getElementById('convert-bs-to-ad').addEventListener('click', () => {
-            const y = +document.getElementById('bs-year').value;
-            const m = +document.getElementById('bs-month').value;
-            const d = +document.getElementById('bs-day').value;
-            const bs = `${y.toString().padStart(4,'0')}-${m.toString().padStart(2,'0')}-${d.toString().padStart(2,'0')}`;
+            const bsY = +document.getElementById('bs-year').value;
+            const bsM = +document.getElementById('bs-month').value;
+            const bsD = +document.getElementById('bs-day').value;
 
-            try {
-              const ad = window.NepaliDateConverter.bsToAd(bs);
-              document.getElementById('ad-year').value = ad.year;
-              document.getElementById('ad-month').value = ad.month;
-              document.getElementById('ad-day').value = ad.day;
-              document.getElementById('zellers-result').textContent = `Converted AD Date: ${ad.year}-${ad.month}-${ad.day}`;
-            } catch {
-              alert("The feature is under development pls try again later");
-            }
+          try {
+  const adDate = window.NepaliDateLibrary.BStoAD(`${bsY}-${bsM}-${bsD}`);
+  document.getElementById('ad-year').value = adDate.year;
+  document.getElementById('ad-month').value = adDate.month;
+  document.getElementById('ad-day').value = adDate.date;
+  document.getElementById('zellers-result').textContent =
+    `Converted AD Date: ${adDate.year}-${adDate.month}-${adDate.date}`;
+} catch (e) {
+  alert("Invalid BS date. Please enter a valid one.");
+}
+
           });
 
           document.getElementById('calculate-day').addEventListener('click', () => {
             const y = +document.getElementById('ad-year').value;
-            const mRaw = +document.getElementById('ad-month').value;
+            let m = +document.getElementById('ad-month').value;
             const d = +document.getElementById('ad-day').value;
-            let m = mRaw < 3 ? mRaw + 12 : mRaw;
-            const year = mRaw < 3 ? y - 1 : y;
-            const K = year % 100, J = Math.floor(year / 100);
-            const h = (d + Math.floor(13*(m+1)/5) + K + Math.floor(K/4) + Math.floor(J/4) + 5*J) % 7;
-            const days = ["Saturday","Sunday","Monday","Tuesday","Wednesday","Thursday","Friday"];
+
+            if (m < 3) {
+              m += 12;
+              y--;
+            }
+
+            const K = y % 100;
+            const J = Math.floor(y / 100);
+            const h = (d + Math.floor(13 * (m + 1) / 5) + K + Math.floor(K / 4) + Math.floor(J / 4) + (5 * J)) % 7;
+            const days = ["Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+
             document.getElementById('zellers-result').textContent = `Day of the week: ${days[h]}`;
           });
         }, 50);
+      }
+
+      else {
+        mainContent.innerHTML = `<section class="trick-details"><h2>Coming Soon</h2><p>This trick is under development.</p></section>`;
       }
     }
 
@@ -294,6 +368,42 @@
         navigate('home');
       }
     });
+  
+  let manualExpression = '';
+
+  function pressKey(val) {
+    manualExpression += val;
+    document.getElementById('manual-display').value = manualExpression;
+  }
+
+  function calculateManual() {
+    try {
+      const result = eval(manualExpression);
+      document.getElementById('manual-display').value = result;
+      manualExpression = result.toString();
+    } catch (e) {
+      document.getElementById('manual-display').value = "Error";
+      manualExpression = '';
+    }
+  }
+
+  function deleteManual() {
+    manualExpression = manualExpression.slice(0, -1);
+    document.getElementById('manual-display').value = manualExpression;
+  }
+
+  function clearManual() {
+    manualExpression = '';
+    document.getElementById('manual-display').value = '';
+  }
+
+  function copyManualResult() {
+    const result = document.getElementById('manual-display').value;
+    if (result && result !== "Error") {
+      navigator.clipboard.writeText(result);
+    }
+  }
+
   </script>
 </body>
 </html>
