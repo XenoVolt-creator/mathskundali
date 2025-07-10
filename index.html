@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Mathskundali</title>
   <link rel="stylesheet" href="style.css"/>
-  <script src="https://cdn.jsdelivr.net/npm/nepali-date-converter@2.2.0/dist/nepali-date-converter.min.js"></script>
-
+  <!-- ✅ Fixed Nepali date converter script path -->
+  <script src="https://cdn.jsdelivr.net/npm/@sbmdkl/nepali-date@latest/dist/nepali-date.umd.js"></script>
   <style>
     body {
       background: linear-gradient(to bottom, #0f0f1c, #1a1a2f);
@@ -127,40 +127,17 @@
 
     function showTrickCategory(type) {
       const categories = {
-        simple: {
-          title: "Simple Tricks",
-          tricks: [
-            { id: 1, name: "The Number is Always 5" },
-            { id: 2, name: "Magic Age Trick" },
-            { id: 3, name: "Birthday Final Number" }
-          ]
-        },
-        hard: {
-          title: "Hard Tricks",
-          tricks: [
-            { id: 4, name: "Phone Number Reveal" },
-            { id: 5, name: "Predict Your Height" },
-            { id: 6, name: "Birthday Number Pattern" }
-          ]
-        },
-        complex: {
-          title: "Complex Tricks",
-          tricks: [
-            { id: 7, name: "🔮 The Number That Reveals Your DOB" },
-            { id: 8, name: "Zeller’s Formula" },
-            { id: 9, name: "ISO Week Number" }
-          ]
-        }
+        simple: { title: "Simple Tricks", tricks: [ { id: 1, name: "The Number is Always 5" }, { id: 2, name: "Magic Age Trick" }, { id: 3, name: "Birthday Final Number" } ] },
+        hard: { title: "Hard Tricks", tricks: [ { id: 4, name: "Phone Number Reveal" }, { id: 5, name: "Predict Your Height" }, { id: 6, name: "Birthday Number Pattern" } ] },
+        complex: { title: "Complex Tricks", tricks: [ { id: 7, name: "🔮 The Number That Reveals Your DOB" }, { id: 8, name: "Zeller’s Formula" }, { id: 9, name: "ISO Week Number" } ] }
       };
-
       const selected = categories[type];
-      let trickCards = selected.tricks.map(trick => `
+      const trickCards = selected.tricks.map(trick => `
         <div class="card">
           <strong>${trick.name}</strong><br>
           <button onclick="showTrick(${trick.id})">Play the Trick</button>
         </div>
-      `).join("");
-
+      `).join('');
       mainContent.innerHTML = `
         <section class="tricks">
           <h2>${selected.title}</h2>
@@ -175,8 +152,6 @@
         mainContent.innerHTML = `
           <section class="trick-details">
             <h2 style="color:#61dafb">🔮 The Number That Reveals Your Date of Birth</h2>
-
-            <!-- Steps -->
             <div class="card">
               <h3>🧮 Steps:</h3>
               <ol>
@@ -184,12 +159,10 @@
                 <li>Add your <strong>month</strong> × 100</li>
                 <li>Then add the last two digits of your <strong>year</strong></li>
                 <li>Multiply the number by <strong>7919</strong></li>
-                <li> Divide the final number by <strong>100</strong></li>
+                <li>Divide the final number by <strong>100</strong></li>
               </ol>
               <p style="color:#aaa;">Don't want to do this manually? Use the calculator below 👇</p>
             </div>
-
-            <!-- Calculator -->
             <div class="card dob-calc">
               <h3>🎯 DOB to Final Number Calculator</h3>
               <input type="number" id="calc-day" placeholder="Enter Day (e.g. 23)">
@@ -199,8 +172,6 @@
               <button class="copy-btn" onclick="copyFinalNumber()">Copy Number</button>
               <p id="calculated-output" style="margin-top:10px;"></p>
             </div>
-
-            <!-- Reveal Box -->
             <div class="neon-box">
               <h3>🔓 Paste the Final Number Below</h3>
               <input type="number" id="magic-dob-number" placeholder="Enter final number here..." />
@@ -208,113 +179,74 @@
               <div id="dob-reveal" class="dob-output"></div>
               <div id="dob-breakdown" style="margin-top: 1rem; color:#ccc;"></div>
             </div>
-
             <button onclick="showTrickCategory('complex')" class="back-btn">← Back to Tricks</button>
+          </section>`;
+      }
+      else if (id === 8) {
+          mainContent.innerHTML = `
+          <section class="trick-details">
+            <h2 style="color:#61dafb">Zeller’s Formula - Day of the Week Calculator</h2>
+            <p>Enter your birth date in BS (Bikram Sambat) to convert to AD and find the day of the week:</p>
+            <div class="card dob-calc">
+              <label>BS Year:</label>
+              <input type="number" id="bs-year" placeholder="2079" />
+              <label>BS Month:</label>
+              <input type="number" id="bs-month" placeholder="1-12" />
+              <label>BS Day:</label>
+              <input type="number" id="bs-day" placeholder="1-32" />
+              <button class="neon-btn" id="convert-bs-to-ad">Convert BS to AD</button>
+            </div>
+            <div class="card dob-calc" style="margin-top:20px;">
+              <label>AD Year:</label>
+              <input type="number" id="ad-year" placeholder="2023" />
+              <label>AD Month:</label>
+              <input type="number" id="ad-month" placeholder="1-12" />
+              <label>AD Day:</label>
+              <input type="number" id="ad-day" placeholder="1-31" />
+              <button class="neon-btn" id="calculate-day">Calculate Day of Week</button>
+            </div>
+            <div id="zellers-result" class="dob-output" style="margin-top:20px; font-weight:bold; font-size:1.2em;"></div>
+            <button onclick="showTrickCategory('complex')" class="back-btn" style="margin-top:30px;">← Back to Tricks</button>
           </section>
         `;
-      } else if (id === 8) {
-  mainContent.innerHTML = `
-    <section class="trick-details">
-      <h2 style="color:#61dafb">Zeller’s Formula - Day of the Week Calculator</h2>
 
-      <p>Enter your birth date in BS (Bikram Sambat) to convert to AD and find the day of the week:</p>
+         setTimeout(() => {
+          document.getElementById('convert-bs-to-ad').addEventListener('click', () => {
+            const y = +document.getElementById('bs-year').value;
+            const m = +document.getElementById('bs-month').value;
+            const d = +document.getElementById('bs-day').value;
+            const bs = `${y.toString().padStart(4,'0')}-${m.toString().padStart(2,'0')}-${d.toString().padStart(2,'0')}`;
 
-      <div class="card dob-calc">
-        <label for="bs-year">BS Year:</label>
-        <input type="number" id="bs-year" placeholder="2079" min="1900" max="2100" />
-        <label for="bs-month">BS Month:</label>
-        <input type="number" id="bs-month" placeholder="1-12" min="1" max="12" />
-        <label for="bs-day">BS Day:</label>
-        <input type="number" id="bs-day" placeholder="1-32" min="1" max="32" />
-        <button class="neon-btn" id="convert-bs-to-ad">Convert BS to AD</button>
-      </div>
+            try {
+              const ad = window.NepaliDateConverter.bsToAd(bs);
+              document.getElementById('ad-year').value = ad.year;
+              document.getElementById('ad-month').value = ad.month;
+              document.getElementById('ad-day').value = ad.day;
+              document.getElementById('zellers-result').textContent = `Converted AD Date: ${ad.year}-${ad.month}-${ad.day}`;
+            } catch {
+              alert("The feature is under development pls try again later");
+            }
+          });
 
-      <div class="card dob-calc" style="margin-top:20px;">
-        <label for="ad-year">AD Year:</label>
-        <input type="number" id="ad-year" placeholder="2023" />
-        <label for="ad-month">AD Month:</label>
-        <input type="number" id="ad-month" placeholder="1-12" min="1" max="12" />
-        <label for="ad-day">AD Day:</label>
-        <input type="number" id="ad-day" placeholder="1-31" min="1" max="31" />
-        <button class="neon-btn" id="calculate-day">Calculate Day of Week</button>
-      </div>
-
-      <div id="zellers-result" class="dob-output" style="margin-top:20px; font-weight:bold; font-size:1.2em;"></div>
-
-      <button onclick="showTrickCategory('complex')" class="back-btn" style="margin-top:30px;">← Back to Tricks</button>
-    </section>
-  `;
-
-  // Zeller's Formula function
-  function zellersFormula(day, month, year) {
-    if (month < 3) {
-      month += 12;
-      year -= 1;
-    }
-    const K = year % 100;
-    const J = Math.floor(year / 100);
-    const h = (day + Math.floor((13 * (month + 1)) / 5) + K + Math.floor(K / 4) + Math.floor(J / 4) + (5 * J)) % 7;
-    const days = ["Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
-    return days[h];
-  }
-
-  // Use library for accurate BS → AD conversion
- document.getElementById('convert-bs-to-ad').addEventListener('click', () => {
-  const bsYear = parseInt(document.getElementById('bs-year').value);
-  const bsMonth = parseInt(document.getElementById('bs-month').value);
-  const bsDay = parseInt(document.getElementById('bs-day').value);
-
-  if (isNaN(bsYear) || isNaN(bsMonth) || isNaN(bsDay)) {
-    alert("Please enter valid BS date values.");
-    return;
-  }
-
-  try {
-    const bsDate = new window.NepaliDateConverter.NepaliDate(bsYear, bsMonth, bsDay);
-    const adDate = bsDate.toJsDate(); // returns a native JS Date object
-
-    document.getElementById('ad-year').value = adDate.getFullYear();
-    document.getElementById('ad-month').value = adDate.getMonth() + 1;
-    document.getElementById('ad-day').value = adDate.getDate();
-
-    document.getElementById('zellers-result').textContent =
-      `Converted AD Date: ${adDate.getFullYear()}-${adDate.getMonth() + 1}-${adDate.getDate()}`;
-  } catch (e) {
-    alert("Conversion failed. Make sure the BS date is correct.");
-  }
-});
-
-
-  // Calculate AD Day of Week
-  document.getElementById('calculate-day').addEventListener('click', () => {
-    const adYear = parseInt(document.getElementById('ad-year').value);
-    const adMonth = parseInt(document.getElementById('ad-month').value);
-    const adDay = parseInt(document.getElementById('ad-day').value);
-
-    if (isNaN(adYear) || isNaN(adMonth) || isNaN(adDay)) {
-      alert("Please enter valid AD date values.");
-      return;
-    }
-
-    const dayName = zellersFormula(adDay, adMonth, adYear);
-    document.getElementById('zellers-result').textContent = `The day of the week is: ${dayName}`;
-  });
-  
-   }  else  {
-      mainContent.innerHTML = `
-        <section class="trick-details">
-          <h2>Work in progress</h2>
-          <p>This trick is still being developed.</p>
-          <button onclick="navigate('home')" class="back-btn">← Back to Categories</button>
-        </section>
-        `;
+          document.getElementById('calculate-day').addEventListener('click', () => {
+            const y = +document.getElementById('ad-year').value;
+            const mRaw = +document.getElementById('ad-month').value;
+            const d = +document.getElementById('ad-day').value;
+            let m = mRaw < 3 ? mRaw + 12 : mRaw;
+            const year = mRaw < 3 ? y - 1 : y;
+            const K = year % 100, J = Math.floor(year / 100);
+            const h = (d + Math.floor(13*(m+1)/5) + K + Math.floor(K/4) + Math.floor(J/4) + 5*J) % 7;
+            const days = ["Saturday","Sunday","Monday","Tuesday","Wednesday","Thursday","Friday"];
+            document.getElementById('zellers-result').textContent = `Day of the week: ${days[h]}`;
+          });
+        }, 50);
       }
     }
 
     function calculateMagicNumber() {
-      const day = parseInt(document.getElementById("calc-day").value);
-      const month = parseInt(document.getElementById("calc-month").value);
-      const year = parseInt(document.getElementById("calc-year").value);
+      const day = +document.getElementById("calc-day").value;
+      const month = +document.getElementById("calc-month").value;
+      const year = +document.getElementById("calc-year").value;
       const shortYear = year % 100;
 
       if (isNaN(day) || isNaN(month) || isNaN(year)) {
@@ -322,46 +254,45 @@
         return;
       }
 
-      const baseNumber = (day * 10000) + (month * 100) + shortYear;
-      const semifinal = baseNumber * 7919;
-      const finalNumber = semifinal / 100
-
-      document.getElementById("calculated-output").innerHTML = `Final Number: <strong id="final-num">${finalNumber}</strong>`;
+      const base = (day * 10000) + (month * 100) + shortYear;
+      const final = (base * 7919) / 100;
+      document.getElementById("calculated-output").innerHTML = `Final Number: <strong id="final-num">${final}</strong>`;
     }
 
     function copyFinalNumber() {
-  const output = document.getElementById("final-num");
-  if (!output) return;
-  navigator.clipboard.writeText(output.textContent);
-    };  
+      const el = document.getElementById("final-num");
+      if (el) navigator.clipboard.writeText(el.textContent);
+    }
 
     function decodeDOB() {
       const input = Number(document.getElementById("magic-dob-number").value);
-      const resultBox = document.getElementById("dob-reveal");
-      const breakdownBox = document.getElementById("dob-breakdown");
+      const output = document.getElementById("dob-reveal");
+      const breakdown = document.getElementById("dob-breakdown");
 
-      if (!input || isNaN(input) || input < 1000000) {
-        resultBox.innerHTML = `<p>Please enter a valid number (usually over 1 million).</p>`;
-        breakdownBox.innerHTML = "";
+      if (!input || input < 1000000) {
+        output.innerHTML = `<p>Please enter a valid number (usually over 1 million).</p>`;
+        breakdown.innerHTML = "";
         return;
       }
-      
-      const decoded = input * 100
-      const semidecoded = decoded / 7919;
-      const year = semidecoded % 100;
-      const month = Math.floor((semidecoded /100)%100 );
-      const day = Math.floor(semidecoded / 10000);
 
-      resultBox.innerHTML = `
-        <h3>🎉 Your Date of Birth: <strong>${day}/${month}/${year}</strong></h3>
-      `;
+      const semi = (input * 100) / 7919;
+      const year = Math.floor(semi % 100);
+      const month = Math.floor((semi / 100) % 100);
+      const day = Math.floor(semi / 10000);
+
+      output.innerHTML = `<h3>🎉 Your Date of Birth: <strong>${day}/${month}/${year}</strong></h3>`;
     }
 
     document.addEventListener("DOMContentLoaded", () => {
-      setTimeout(() => {
-        document.getElementById("loader").style.display = "none";
+      const loader = document.getElementById("loader");
+      if (loader) {
+        setTimeout(() => {
+          loader.style.display = "none";
+          navigate('home');
+        }, 3000);
+      } else {
         navigate('home');
-      }, 3000);
+      }
     });
   </script>
 </body>
