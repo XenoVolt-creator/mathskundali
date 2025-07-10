@@ -9,14 +9,14 @@ function navigate(view) {
         <h2>Unlocking the Magic of Numbers</h2>
         <p>Welcome to Mathskundali, where we blend mathematical prediction with magic!</p>
         <div class="category-buttons">
-          <button onclick="navigate('simple')" data-type="simple">Simple Tricks</button>
-          <button onclick="navigate('hard')" data-type="hard">Hard Tricks</button>
-          <button onclick="navigate('complex')" data-type="complex">Complex Tricks</button>
+          <button onclick="navigate('simple')">Simple Tricks</button>
+          <button onclick="navigate('hard')">Hard Tricks</button>
+          <button onclick="navigate('complex')">Complex Tricks</button>
         </div>
       </section>
     `;
     scrollToTop();
-  } else if (view === 'simple' || view === 'hard' || view === 'complex') {
+  } else if (['simple', 'hard', 'complex'].includes(view)) {
     const categories = {
       simple: {
         title: "Simple Tricks",
@@ -85,14 +85,86 @@ function navigate(view) {
   }
 }
 
+function attachZellersHandlers() {
+  const convertBtn = document.getElementById('convert-bs-to-ad');
+  const calcDayBtn = document.getElementById('calculate-day');
+
+  if (convertBtn) {
+    convertBtn.addEventListener('click', () => {
+      const bsYear = parseInt(document.getElementById('bs-year').value.trim(), 10);
+      const bsMonth = parseInt(document.getElementById('bs-month').value.trim(), 10);
+      const bsDay = parseInt(document.getElementById('bs-day').value.trim(), 10);
+
+      // Basic validation
+      if (
+        isNaN(bsYear) || isNaN(bsMonth) || isNaN(bsDay) ||
+        bsYear < 2000 || bsYear > 2100 ||
+        bsMonth < 1 || bsMonth > 12 ||
+        bsDay < 1 || bsDay > 32
+      ) {
+        alert("Please enter a valid BS date (Year: 2000–2100, Month: 1–12, Day: 1–32).");
+        return;
+      }
+
+      try {
+        const bsDate = new NepaliDateConverter.BsDate(bsYear, bsMonth, bsDay);
+        const adDateObj = bsDate.toADDate();
+
+        // Fill AD fields
+        document.getElementById('ad-year').value = adDateObj.year;
+        document.getElementById('ad-month').value = adDateObj.month;
+        document.getElementById('ad-day').value = adDateObj.day;
+
+        // Show result
+        document.getElementById('zellers-result').textContent =
+          `Converted AD Date: ${adDateObj.year}-${String(adDateObj.month).padStart(2, '0')}-${String(adDateObj.day).padStart(2, '0')}`;
+      } catch (error) {
+        console.error("Error converting BS to AD:", error);
+        alert("Conversion failed. Please check the BS date.");
+      }
+    });
+  }
+
+  if (calcDayBtn) {
+    calcDayBtn.addEventListener('click', () => {
+      const adYear = parseInt(document.getElementById('ad-year').value.trim(), 10);
+      const adMonth = parseInt(document.getElementById('ad-month').value.trim(), 10);
+      const adDay = parseInt(document.getElementById('ad-day').value.trim(), 10);
+
+      if (
+        isNaN(adYear) || isNaN(adMonth) || isNaN(adDay) ||
+        adYear < 1600 || adYear > 2100 ||
+        adMonth < 1 || adMonth > 12 ||
+        adDay < 1 || adDay > 31
+      ) {
+        alert("Please enter a valid AD date.");
+        return;
+      }
+
+      try {
+        const dayName = zellersFormula(adDay, adMonth, adYear);
+        document.getElementById('zellers-result').textContent =
+          `The day of the week is: ${dayName}`;
+      } catch (e) {
+        console.error("Error calculating day of the week:", e);
+        alert("Something went wrong. Please check your date.");
+      }
+    });
+  }
+}
+
+
+
+// ✅ Initial Loader + Home Navigation
 document.addEventListener("DOMContentLoaded", () => {
   const loader = document.getElementById("loader");
   if (loader) {
     setTimeout(() => {
       loader.style.display = "none";
       navigate('home');
-    }, 3000); // 3-second loader
+    }, 3000);
   } else {
     navigate('home');
+     attachZellersHandlers();
   }
 });
