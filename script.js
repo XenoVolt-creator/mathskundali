@@ -14,9 +14,9 @@ function navigate(view) {
         <h2>Unlocking the Magic of Numbers</h2>
         <p>Welcome to Mathskundali, where we blend mathematical prediction with magic!</p>
         <div class="category-buttons">
-          <button onclick="navigate('simple')">Simple Tricks</button>
-          <button onclick="navigate('hard')">Hard Tricks</button>
-          <button onclick="navigate('complex')">Complex Tricks</button>
+          <button onclick="navigate('simple')" data-type="simple">Simple Tricks</button>
+          <button onclick="navigate('hard')" data-type="hard">Hard Tricks</button>
+          <button onclick="navigate('complex')" data-type="complex">Complex Tricks</button>
         </div>
       </section>
     `;
@@ -45,7 +45,7 @@ function navigate(view) {
         tricks: [
           { id: 5, name: "I Know Your Phone Number" },
           { id: 6, name: "I Can Guess Your ATM PIN" },
-          { id: 11, name: "2-digit Number Trick (Coming Soon)" }
+          { id: 11, name: "ISO Week Number Calculator" }
         ]
       }
     };
@@ -62,7 +62,11 @@ function navigate(view) {
       <section class="tricks">
         <h2>${selected.title}</h2>
         <div class="tricks-grid">${cardsHTML}</div>
-        <button onclick="navigate('home')" class="back-btn">← Back to Categories</button>
+    <div style="display: flex; justify-content: space-between; margin-top: 20px;">
+  <button onclick="navigate('home')" class="back-btn">← Back to Categories</button>
+  ${type === 'complex' ? `<button onclick="alert('Professor-only section coming soon!')" class="prof-btn">More Complex Tricks (Only for Professors)</button>` : ''}
+</div>
+
       </section>
     `;
     scrollToTop();
@@ -87,99 +91,136 @@ function navigate(view) {
         <p><strong>Trick 4 – I Know Your Height:</strong><br>You enter a secret final number based on steps we give you. Behind the scenes, the site reverses those steps to find your exact height and shows it in both cm and feet/inches!</p><br>
         <p><strong>Trick 5 – I Know Your Phone Number:</strong><br>After you do a few math steps using your phone number and birth year, we reverse those steps to reveal your phone number!</p><br>
         <p><strong>Trick 6 – I Can Guess Your ATM PIN:</strong><br>You enter your PIN and do some steps. The site applies reverse logic and shows your exact PIN. No data is stored — it’s just a fun math trick!</p><br>
+        <p><strong>Bonus Trick – ISO Week Number Calculator:</strong><br>Calculate the ISO week number of any Gregorian calendar date.</p>
       </section>
     `;
     scrollToTop();
+
+  } else {
+    mainContent.innerHTML = `<section><h2>404 Not Found</h2><p>The page you requested does not exist.</p></section>`;
   }
 }
 
-function attachZellersHandlers() {
-  const convertBtn = document.getElementById('convert-bs-to-ad');
-  const calcDayBtn = document.getElementById('calculate-day');
-
-  if (convertBtn) {
-    convertBtn.addEventListener('click', () => {
-      const bsYear = parseInt(document.getElementById('bs-year').value.trim(), 10);
-      const bsMonth = parseInt(document.getElementById('bs-month').value.trim(), 10);
-      const bsDay = parseInt(document.getElementById('bs-day').value.trim(), 10);
-
-      if (
-        isNaN(bsYear) || isNaN(bsMonth) || isNaN(bsDay) ||
-        bsYear < 2000 || bsYear > 2086||
-        bsMonth < 1 || bsMonth > 12 ||
-        bsDay < 1 || bsDay > 32
-      ) {
-        alert("Please enter a valid BS date (Year: 2000–2091, Month: 1–12, Day: 1–32).");
-        return;
-      }
-
-      try {
-        const convertFn = typeof bsToAd !== "undefined" ? bsToAd : window.bsToAd;
-        const formatFn = typeof formatAdDate !== "undefined" ? formatAdDate : window.formatAdDate;
-
-        const adDate = convertFn(bsYear, bsMonth, bsDay);
-
-        if (!adDate || !adDate.year || !adDate.month || !adDate.day) {
-          throw new Error("Invalid AD date result");
-        }
-
-        document.getElementById('ad-year').value = adDate.year;
-        document.getElementById('ad-month').value = adDate.month;
-        document.getElementById('ad-day').value = adDate.day;
-
-        const formatted = formatFn(adDate);
-        document.getElementById('zellers-result').textContent =
-          `Converted AD Date: ${formatted}`;
-      } catch (err) {
-        console.error("Error during BS to AD conversion:", err);
-        alert("Conversion failed. Please check your BS date input.");
-      }
-    });
+function showTrick(id) {
+  switch (id) {
+    case 3: // Zeller’s formula trick
+      showZellersFormula();
+      break;
+    case 11: // ISO Week Number Calculator
+      showIsoWeekCalculator();
+      break;
+    default:
+      mainContent.innerHTML = `
+        <section class="trick center">
+          <h2>Coming Soon</h2>
+          <p>This trick is under development.</p>
+          <button onclick="navigate('complex')" class="back-btn">← Back to Tricks</button>
+        </section>
+      `;
   }
-
-  if (calcDayBtn) {
-    calcDayBtn.addEventListener('click', () => {
-      const adYear = parseInt(document.getElementById("ad-year").value);
-      const adMonth = parseInt(document.getElementById("ad-month").value);
-      const adDay = parseInt(document.getElementById("ad-day").value);
-
-      if (
-        isNaN(adYear) || isNaN(adMonth) || isNaN(adDay) ||
-        adYear < 1600 || adYear > 2100 ||
-        adMonth < 1 || adMonth > 12 ||
-        adDay < 1 || adDay > 31
-      ) {
-        alert("Please enter a valid AD date.");
-        return;
-      }
-
-      try {
-        const dayOfWeek = zellersFormula(adDay, adMonth, adYear);
-        document.getElementById('zellers-result').textContent =
-          `The day of the week is: ${dayOfWeek}`;
-      } catch (err) {
-        console.error("Error during Zeller's calculation:", err);
-        alert("Something went wrong during day calculation.");
-      }
-    });
-  }
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-function formatAdDate({ year, month, day }) {
-  return `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+function showZellersFormula() {
+  mainContent.innerHTML = `
+    <section class="trick">
+      <h2 style="color:#61dafb">Zeller’s Formula - Day of the Week Calculator</h2>
+      <p>Enter your birth date to calculate the day of the week you were born:</p>
+      <div class="dob-calc">
+        <label for="zeller-year">Year (AD):</label>
+        <input type="number" id="zeller-year" placeholder="2023" />
+        <label for="zeller-month">Month (1-12):</label>
+        <input type="number" id="zeller-month" placeholder="1-12" />
+        <label for="zeller-day">Day (1-31):</label>
+        <input type="number" id="zeller-day" placeholder="1-31" />
+        <button class="neon-btn" id="calculate-day">Calculate Day of Week</button>
+        <div id="zellers-result" class="dob-output"></div>
+      </div>
+      <button onclick="navigate('hard')" class="back-btn" style="margin-top: 20px;">← Back to Tricks</button>
+    </section>
+  `;
+
+  document.getElementById('calculate-day').addEventListener('click', () => {
+    const year = parseInt(document.getElementById('zeller-year').value, 10);
+    let month = parseInt(document.getElementById('zeller-month').value, 10);
+    const day = parseInt(document.getElementById('zeller-day').value, 10);
+
+    if (
+      isNaN(year) || isNaN(month) || isNaN(day) ||
+      year < 1600 || year > 2100 ||
+      month < 1 || month > 12 ||
+      day < 1 || day > 31
+    ) {
+      alert("Please enter a valid AD date.");
+      return;
+    }
+
+    if (month < 3) {
+      month += 12;
+      year -= 1;
+    }
+
+    const K = year % 100;
+    const J = Math.floor(year / 100);
+    const h = (day + Math.floor(13 * (month + 1) / 5) + K +
+      Math.floor(K / 4) + Math.floor(J / 4) + 5 * J) % 7;
+
+    const days = ['Saturday', 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
+    const dayOfWeek = days[h];
+
+    document.getElementById('zellers-result').textContent = `The day of the week is: ${dayOfWeek}`;
+  });
 }
 
-function zellersFormula(day, month, year) {
-  if (month < 3) {
-    month += 12;
-    year -= 1;
-  }
-  const K = year % 100;
-  const J = Math.floor(year / 100);
-  const h = (day + Math.floor(13 * (month + 1) / 5) + K +
-    Math.floor(K / 4) + Math.floor(J / 4) + 5 * J) % 7;
-  const days = ['Saturday', 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
-  return days[h];
+function showIsoWeekCalculator() {
+  mainContent.innerHTML = `
+    <section class="trick">
+      <h2 style="color:#61dafb">ISO Week Number Calculator</h2>
+      <p>Enter any Gregorian date to find its ISO week number and year:</p>
+      <div class="dob-calc">
+        <label for="iso-year">Year (AD):</label>
+        <input type="number" id="iso-year" placeholder="2025" />
+        <label for="iso-month">Month (1-12):</label>
+        <input type="number" id="iso-month" placeholder="1-12" />
+        <label for="iso-day">Day (1-31):</label>
+        <input type="number" id="iso-day" placeholder="1-31" />
+        <button class="neon-btn" id="calculate-iso-week">Calculate ISO Week Number</button>
+        <div id="iso-result" class="dob-output"></div>
+      </div>
+      <button onclick="navigate('complex')" class="back-btn" style="margin-top: 20px;">← Back to Tricks</button>
+    </section>
+  `;
+
+  document.getElementById('calculate-iso-week').addEventListener('click', () => {
+    const year = parseInt(document.getElementById('iso-year').value, 10);
+    const month = parseInt(document.getElementById('iso-month').value, 10);
+    const day = parseInt(document.getElementById('iso-day').value, 10);
+
+    if (
+      isNaN(year) || isNaN(month) || isNaN(day) ||
+      year < 1600 || year > 2100 ||
+      month < 1 || month > 12 ||
+      day < 1 || day > 31
+    ) {
+      alert("Please enter a valid date.");
+      return;
+    }
+
+    const isoData = getISOWeek(year, month, day);
+    document.getElementById('iso-result').textContent = 
+      `ISO Week Number: ${isoData.week}, ISO Year: ${isoData.year}`;
+  });
+}
+
+// ISO Week Number Calculation (returns { year, week })
+function getISOWeek(year, month, day) {
+  // Month is 1-based for inputs; convert to 0-based for Date
+  const date = new Date(Date.UTC(year, month -1, day));
+  // Thursday in current week decides the year.
+  date.setUTCDate(date.getUTCDate() + 4 - (date.getUTCDay()||7));
+  const yearStart = new Date(Date.UTC(date.getUTCFullYear(),0,1));
+  const weekNo = Math.ceil((((date - yearStart) / 86400000) + 1)/7);
+  return { year: date.getUTCFullYear(), week: weekNo };
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -188,10 +229,8 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => {
       loader.style.display = "none";
       navigate('home');
-      attachZellersHandlers();
     }, 3000);
   } else {
     navigate('home');
-    attachZellersHandlers();
   }
 });
