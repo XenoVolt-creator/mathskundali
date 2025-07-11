@@ -1,325 +1,413 @@
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(to bottom right, #0a0f2c, #1c1b3f);
+    color: #ffffff;
+  }
+  
+  header {
+    background-color: #101529;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .logo {
+    font-size: 1.8rem;
+    color: #61dafb;
+  }
+  
+  .nav-links {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+  }
+  
+  .nav-links a {
+    text-decoration: none;
+    color: #ccc;
+    font-weight: 500;
+  }
+  
+  .nav-links a:hover {
+    color: #61dafb;
+  }
+  
+  .hero {
+    text-align: center;
+    padding: 3rem 2rem;
+  }
+  
+  .hero h2 {
+    font-size: 2.5rem;
+    color: #61dafb;
+    margin-bottom: 1rem;
+  }
+  
+  .hero p {
+    margin-bottom: 2rem;
+  }
+  
+  .tricks-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 30px;
+  }
+  
+  .card {
+    background: linear-gradient(to bottom right, #1b1b2e, #2d2d47);
+    border-radius: 16px;
+    padding: 20px 30px;
+    min-width: 200px;
+    text-align: center;
+    box-shadow: 0 0 20px rgba(97, 218, 251, 0.25);
+    border: 1px solid #61dafb33;
+    transition: all 0.3s ease;
+  }
+  
+  .card:hover {
+    box-shadow: 0 0 25px rgba(97, 218, 251, 0.5);
+    transform: translateY(-6px);
+  }
+  
+  .card strong {
+    color: #ffffff;
+    font-size: 1.2rem;
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  .card button {
+    background-color: #00bfff;
+    color: #0f0f1c;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .card button:hover {
+    background-color: #009acd;
+    color: white;
+  }
+  
+  
+  .about {
+    padding: 3rem 2rem;
+    background-color: #14172b;
+    text-align: center;
+  }
+  
+  .about h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #61dafb;
+  }
+  
+  footer {
+    padding: 1rem;
+    text-align: center;
+    background-color: #101529;
+    color: #888;
+  }
+  
+  /* ==== Trick 1 UI === */
+  .trick.centered {
+    background-color: #0d1b2a;
+    padding: 2rem;
+    border-radius: 16px;
+    text-align: center;
+    color: #ffffff;
+    max-width: 450px;
+    margin: 3rem auto;
+    box-shadow: 0 0 25px rgba(97, 218, 251, 0.3);
+  }
+  
+  input[type="number"] {
+    padding: 0.8rem;
+    font-size: 1rem;
+    border-radius: 10px;
+    border: none;
+    margin: 1rem 0;
+    width: 80%;
+    max-width: 300px;
+    text-align: center;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+  }
+  
+  .trick button {
+    padding: 0.7rem 1.5rem;
+    font-size: 1rem;
+    margin: 0.5rem;
+    border: none;
+    border-radius: 8px;
+    background-color: #61dafb;
+    color: #000;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .trick button:hover {
+    background-color: #21a1f1;
+  }
+  
+  .big-result {
+    margin-top: 1.2rem;
+    font-size: 1.3rem;
+    color: #61dafb;
+  }
+  
+  .explanation-steps {
+    margin-top: 1rem;
+    font-size: 1.05rem;
+    color: #ccccff;
+    text-align: left;
+    max-width: 350px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  #loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #0a0f2c;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    z-index: 9999;
+  }
+  
+  .loader-logo {
+    width: 160px;
+    margin-bottom: 20px;
+  }
+  
+  .loader-text {
+    font-size: 1rem;
+    max-width: 80%;
+    color: #ccc;
+    margin-bottom: 20px;
+  }
+  
+  .loading-bar {
+    width: 80%;
+    height: 6px;
+    background-color: #222;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  
+  .loading-progress {
+    height: 100%;
+    width: 0%;
+    background: #61dafb;
+    animation: loadBar 3s linear forwards;
+  }
+  
+  @keyframes loadBar {
+    0% { width: 0%; }
+    100% { width: 100%; }
+  }
+  
+  .category-buttons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  
+  .category-buttons button {
+    background: linear-gradient(145deg, #1f1f3b, #1c1c33);
+    color: #fff;
+    padding: 12px 24px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(97, 218, 251, 0.2);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+  }
+  
+  .category-buttons button:hover {
+    background: #202040;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(97, 218, 251, 0.4);
+  }
+  
+  .category-buttons button::before {
+    content: '';
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 8px;
+    vertical-align: middle;
+    background-color: #61dafb; /* bright green for simple */
+  }
+  
+  button[data-type="hard"]::before {
+    background-color: #ff4d4d; /* red for hard */
+  }
+  
+  button[data-type="complex"]::before {
+    background-color: #b366ff; /* purple for complex */
+  }
+  
+  .back-arrow {
+    position: absolute;
+    top: 80px;
+    left: 30px;
+    font-size: 2rem;
+    color: #61dafb;
+    cursor: pointer;
+    z-index: 999;
+    transition: 0.3s;
+  }
+  .back-arrow:hover {
+    transform: scale(1.2);
+    color: #ffffff;
+  }
+  
+  .back-btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    border: none;
+    background: #2c2c3e;
+    color: #61dafb;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s;
+    box-shadow: 0 0 8px #61dafb33;
+  }
+  .back-btn:hover {
+    background: #383851;
+    box-shadow: 0 0 12px #61dafb66;
+  }
+  
+  .calc-buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-top: 15px;
+  }
+  .calc-buttons button {
+    padding: 12px;
+    font-size: 1rem;
+    background-color: #2b2b3a;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  .calc-buttons button:hover {
+    background-color: #3c3c4f;
+  }
 
-body {
-  font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(to bottom right, #0a0f2c, #1c1b3f);
-  color: #ffffff;
-}
+  /* === Trick 9: ISO Week UI === */
+.dob-calc {
+    background: linear-gradient(to bottom right, #1b1b2e, #2d2d47);
+    border-radius: 16px;
+    padding: 20px;
+    max-width: 400px;
+    margin: 0 auto;
+    box-shadow: 0 0 20px rgba(97, 218, 251, 0.2);
+    text-align: center;
+  }
+  
+  .dob-calc label {
+    display: block;
+    margin-top: 1rem;
+    font-weight: bold;
+    color: #ddd;
+  }
+  
+  .dob-calc input[type="number"] {
+    width: 100%;
+    margin-top: 0.3rem;
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 10px;
+    border: none;
+    text-align: center;
+    background: #222;
+    color: #fff;
+    box-shadow: inset 0 0 8px rgba(255, 255, 255, 0.1);
+  }
+  
+  .neon-btn {
+    margin-top: 1.5rem;
+    padding: 10px 20px;
+    background-color: #61dafb;
+    color: #000;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s;
+  }
+  
+  .neon-btn:hover {
+    background-color: #21a1f1;
+    transform: scale(1.05);
+  }
+  
+  #iso-result {
+    margin-top: 1.5rem;
+    font-size: 1.2rem;
+    color: #61dafb;
+    font-weight: bold;
+  }
 
-header {
-  background-color: #101529;
-  padding: 1rem 2rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.logo {
-  font-size: 1.8rem;
-  color: #61dafb;
-}
-
-.nav-links {
-  list-style: none;
-  display: flex;
-  gap: 1.5rem;
-}
-
-.nav-links a {
-  text-decoration: none;
-  color: #ccc;
-  font-weight: 500;
-}
-
-.nav-links a:hover {
-  color: #61dafb;
-}
-
-.hero {
-  text-align: center;
-  padding: 3rem 2rem;
-}
-
-.hero h2 {
-  font-size: 2.5rem;
-  color: #61dafb;
-  margin-bottom: 1rem;
-}
-
-.hero p {
-  margin-bottom: 2rem;
-}
-
-.tricks-grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 30px;
-  margin-top: 30px;
-}
-
-.card {
-  background: linear-gradient(to bottom right, #1b1b2e, #2d2d47);
-  border-radius: 16px;
-  padding: 20px 30px;
-  min-width: 200px;
-  text-align: center;
-  box-shadow: 0 0 20px rgba(97, 218, 251, 0.25);
-  border: 1px solid #61dafb33;
-  transition: all 0.3s ease;
-}
-
-.card:hover {
-  box-shadow: 0 0 25px rgba(97, 218, 251, 0.5);
-  transform: translateY(-6px);
-}
-
-.card strong {
-  color: #ffffff;
-  font-size: 1.2rem;
-  display: block;
-  margin-bottom: 10px;
-}
-
-.card button {
-  background-color: #00bfff;
-  color: #0f0f1c;
-  border: none;
-  padding: 10px 18px;
-  border-radius: 8px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-.card button:hover {
-  background-color: #009acd;
-  color: white;
-}
-
-
-.about {
-  padding: 3rem 2rem;
-  background-color: #14172b;
-  text-align: center;
-}
-
-.about h2 {
-  font-size: 2rem;
-  margin-bottom: 1rem;
-  color: #61dafb;
-}
-
-footer {
-  padding: 1rem;
-  text-align: center;
-  background-color: #101529;
-  color: #888;
-}
-
-/* ==== Trick 1 UI === */
-.trick.centered {
-  background-color: #0d1b2a;
-  padding: 2rem;
-  border-radius: 16px;
-  text-align: center;
-  color: #ffffff;
-  max-width: 450px;
-  margin: 3rem auto;
-  box-shadow: 0 0 25px rgba(97, 218, 251, 0.3);
-}
-
-input[type="number"] {
-  padding: 0.8rem;
-  font-size: 1rem;
-  border-radius: 10px;
-  border: none;
-  margin: 1rem 0;
-  width: 80%;
-  max-width: 300px;
-  text-align: center;
-  box-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
-}
-
-.trick button {
-  padding: 0.7rem 1.5rem;
-  font-size: 1rem;
-  margin: 0.5rem;
-  border: none;
-  border-radius: 8px;
-  background-color: #61dafb;
-  color: #000;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-.trick button:hover {
-  background-color: #21a1f1;
-}
-
-.big-result {
-  margin-top: 1.2rem;
-  font-size: 1.3rem;
-  color: #61dafb;
-}
-
-.explanation-steps {
-  margin-top: 1rem;
-  font-size: 1.05rem;
-  color: #ccccff;
-  text-align: left;
-  max-width: 350px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-#loader {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: #0a0f2c;
-  color: white;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  z-index: 9999;
-}
-
-.loader-logo {
-  width: 160px;
-  margin-bottom: 20px;
-}
-
-.loader-text {
-  font-size: 1rem;
-  max-width: 80%;
-  color: #ccc;
-  margin-bottom: 20px;
-}
-
-.loading-bar {
-  width: 80%;
-  height: 6px;
-  background-color: #222;
-  border-radius: 4px;
-  overflow: hidden;
-}
-
-.loading-progress {
-  height: 100%;
-  width: 0%;
-  background: #61dafb;
-  animation: loadBar 3s linear forwards;
-}
-
-@keyframes loadBar {
-  0% { width: 0%; }
-  100% { width: 100%; }
-}
-
-.category-buttons {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 1rem;
-  margin-top: 2rem;
-}
-
-.category-buttons button {
-  background: linear-gradient(145deg, #1f1f3b, #1c1c33);
-  color: #fff;
-  padding: 12px 24px;
-  font-size: 1rem;
-  border: none;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(97, 218, 251, 0.2);
-  transition: all 0.3s ease;
-  cursor: pointer;
-  position: relative;
-}
-
-.category-buttons button:hover {
-  background: #202040;
-  transform: translateY(-3px);
-  box-shadow: 0 6px 20px rgba(97, 218, 251, 0.4);
-}
-
-.category-buttons button::before {
-  content: '';
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  display: inline-block;
-  margin-right: 8px;
-  vertical-align: middle;
-  background-color: #61dafb; /* bright green for simple */
-}
-
-button[data-type="hard"]::before {
-  background-color: #ff4d4d; /* red for hard */
-}
-
-button[data-type="complex"]::before {
-  background-color: #b366ff; /* purple for complex */
-}
-
-.back-arrow {
-  position: absolute;
-  top: 80px;
-  left: 30px;
-  font-size: 2rem;
-  color: #61dafb;
-  cursor: pointer;
-  z-index: 999;
-  transition: 0.3s;
-}
-.back-arrow:hover {
-  transform: scale(1.2);
-  color: #ffffff;
-}
-
-.back-btn {
-  display: inline-block;
-  margin-top: 20px;
-  padding: 10px 20px;
-  border: none;
-  background: #2c2c3e;
-  color: #61dafb;
-  font-weight: bold;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background 0.3s;
-  box-shadow: 0 0 8px #61dafb33;
-}
-.back-btn:hover {
-  background: #383851;
-  box-shadow: 0 0 12px #61dafb66;
-}
-
-.calc-buttons {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
-  margin-top: 15px;
-}
-.calc-buttons button {
-  padding: 12px;
-  font-size: 1rem;
-  background-color: #2b2b3a;
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-}
-.calc-buttons button:hover {
-  background-color: #3c3c4f;
-}
+     .arrow {
+        position: absolute;
+        top: 80px;
+        right: 30px;
+        font-size: 2rem;
+        color: #61dafb;
+        cursor: pointer;
+        z-index: 999;
+        transition: 0.3s;
+      }
+      .arrow:hover {
+        transform: scale(1.2);
+        color: #ffffff;
+      }
+      
+      .prof-btn {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 10px 20px;
+        border: none;
+        background: #2c2c3e;
+        color: #61dafb;
+        font-weight: bold;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background 0.3s;
+        box-shadow: 0 0 8px #61dafb33;
+      }
+      .prof-btn:hover {
+        background: #383851;
+        box-shadow: 0 0 12px #61dafb66;
+      };
 
