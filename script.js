@@ -1,7 +1,12 @@
 const mainContent = document.getElementById('main-content');
 
 function navigate(view) {
-  let scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+  if (!mainContent) {
+    console.error("Missing #main-content element.");
+    return;
+  }
+
+  const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
   if (view === 'home') {
     mainContent.innerHTML = `
@@ -16,6 +21,7 @@ function navigate(view) {
       </section>
     `;
     scrollToTop();
+
   } else if (['simple', 'hard', 'complex'].includes(view)) {
     const categories = {
       simple: {
@@ -60,6 +66,7 @@ function navigate(view) {
       </section>
     `;
     scrollToTop();
+
   } else if (view === 'about') {
     mainContent.innerHTML = `
       <section class="about">
@@ -69,6 +76,7 @@ function navigate(view) {
       </section>
     `;
     scrollToTop();
+
   } else if (view === 'explanations') {
     mainContent.innerHTML = `
       <section class="explanations">
@@ -95,41 +103,45 @@ function attachZellersHandlers() {
       const bsMonth = parseInt(document.getElementById('bs-month').value.trim(), 10);
       const bsDay = parseInt(document.getElementById('bs-day').value.trim(), 10);
 
-      // Basic validation
       if (
         isNaN(bsYear) || isNaN(bsMonth) || isNaN(bsDay) ||
-        bsYear < 2000 || bsYear > 2100 ||
+        bsYear < 2000 || bsYear > 2086||
         bsMonth < 1 || bsMonth > 12 ||
         bsDay < 1 || bsDay > 32
       ) {
-        alert("Please enter a valid BS date (Year: 2000–2100, Month: 1–12, Day: 1–32).");
+        alert("Please enter a valid BS date (Year: 2000–2091, Month: 1–12, Day: 1–32).");
         return;
       }
 
       try {
-        const bsDate = new NepaliDateConverter.BsDate(bsYear, bsMonth, bsDay);
-        const adDateObj = bsDate.toADDate();
+        const convertFn = typeof bsToAd !== "undefined" ? bsToAd : window.bsToAd;
+        const formatFn = typeof formatAdDate !== "undefined" ? formatAdDate : window.formatAdDate;
 
-        // Fill AD fields
-        document.getElementById('ad-year').value = adDateObj.year;
-        document.getElementById('ad-month').value = adDateObj.month;
-        document.getElementById('ad-day').value = adDateObj.day;
+        const adDate = convertFn(bsYear, bsMonth, bsDay);
 
-        // Show result
+        if (!adDate || !adDate.year || !adDate.month || !adDate.day) {
+          throw new Error("Invalid AD date result");
+        }
+
+        document.getElementById('ad-year').value = adDate.year;
+        document.getElementById('ad-month').value = adDate.month;
+        document.getElementById('ad-day').value = adDate.day;
+
+        const formatted = formatFn(adDate);
         document.getElementById('zellers-result').textContent =
-          `Converted AD Date: ${adDateObj.year}-${String(adDateObj.month).padStart(2, '0')}-${String(adDateObj.day).padStart(2, '0')}`;
-      } catch (error) {
-        console.error("Error converting BS to AD:", error);
-        alert("Conversion failed. Please check the BS date.");
+          `Converted AD Date: ${formatted}`;
+      } catch (err) {
+        console.error("Error during BS to AD conversion:", err);
+        alert("Conversion failed. Please check your BS date input.");
       }
     });
   }
 
   if (calcDayBtn) {
     calcDayBtn.addEventListener('click', () => {
-      const adYear = parseInt(document.getElementById('ad-year').value.trim(), 10);
-      const adMonth = parseInt(document.getElementById('ad-month').value.trim(), 10);
-      const adDay = parseInt(document.getElementById('ad-day').value.trim(), 10);
+      const adYear = parseInt(document.getElementById("ad-year").value);
+      const adMonth = parseInt(document.getElementById("ad-month").value);
+      const adDay = parseInt(document.getElementById("ad-day").value);
 
       if (
         isNaN(adYear) || isNaN(adMonth) || isNaN(adDay) ||
@@ -142,29 +154,44 @@ function attachZellersHandlers() {
       }
 
       try {
-        const dayName = zellersFormula(adDay, adMonth, adYear);
+        const dayOfWeek = zellersFormula(adDay, adMonth, adYear);
         document.getElementById('zellers-result').textContent =
-          `The day of the week is: ${dayName}`;
-      } catch (e) {
-        console.error("Error calculating day of the week:", e);
-        alert("Something went wrong. Please check your date.");
+          `The day of the week is: ${dayOfWeek}`;
+      } catch (err) {
+        console.error("Error during Zeller's calculation:", err);
+        alert("Something went wrong during day calculation.");
       }
     });
   }
 }
 
+function formatAdDate({ year, month, day }) {
+  return `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+}
 
+function zellersFormula(day, month, year) {
+  if (month < 3) {
+    month += 12;
+    year -= 1;
+  }
+  const K = year % 100;
+  const J = Math.floor(year / 100);
+  const h = (day + Math.floor(13 * (month + 1) / 5) + K +
+    Math.floor(K / 4) + Math.floor(J / 4) + 5 * J) % 7;
+  const days = ['Saturday', 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
+  return days[h];
+}
 
-// ✅ Initial Loader + Home Navigation
 document.addEventListener("DOMContentLoaded", () => {
   const loader = document.getElementById("loader");
   if (loader) {
     setTimeout(() => {
       loader.style.display = "none";
       navigate('home');
+      attachZellersHandlers();
     }, 3000);
   } else {
     navigate('home');
-     attachZellersHandlers();
+    attachZellersHandlers();
   }
 });
