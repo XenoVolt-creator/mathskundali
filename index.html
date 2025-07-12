@@ -128,7 +128,7 @@
 
     function showTrickCategory(type) {
       const categories = {
-        simple: { title: "Simple Tricks", tricks: [ { id: 1, name: "The Number is Always 5" }, { id: 2, name: "Magic Age Trick" }, { id: 3, name: "Birthday Final Number" } ] },
+        simple: { title: "Simple Tricks", tricks: [ { id: 1, name: "Hand Trick For 9 Times Table" }, { id: 2, name: "Magic Age Trick" }, { id: 3, name: "Birthday Final Number" } ] },
         hard: { title: "Hard Tricks", tricks: [ { id: 4, name: "Phone Number Reveal" }, { id: 5, name: "Predict Your Height" }, { id: 6, name: "Birthday Number Pattern" } ] },
         complex: { title: "Complex Tricks", tricks: [ { id: 7, name: "🔮 The Number That Reveals Your DOB" }, { id: 8, name: "Zeller’s Formula" }, { id: 9, name: "ISO Week Number" } ] }
       };
@@ -316,10 +316,37 @@
           }
         }, 50);
       }
+    else if (id === 1) {
+  mainContent.innerHTML = `
+    <section class="trick-details">
+      <h2 style="color:#61dafb">🖐️ 9 Times Table - Hand Trick</h2>
+      <div class="card">
+        <h3>🧠 Amazing Hand Trick for 9 Table</h3>
+        <ul style="line-height: 1.8; padding-left: 20px;">
+          <li>Put both hands in front of you, palms down.</li>
+          <li>To multiply a number from 1 to 10 by 9, bend the finger of the number you're multiplying.<br><em>(e.g., bend 3rd finger for 9 × 3)</em></li>
+          <li>Count fingers to the <strong>left</strong> of the bent finger → this is the <strong>tens digit</strong>.</li>
+          <li>Count fingers to the <strong>right</strong> of the bent finger → this is the <strong>ones digit</strong>.</li>
+        </ul>
+        <p style="margin-top:10px; font-size:1.1em;">
+          <strong>Example:</strong> Bend the 4th finger → 3 on the left and 6 on the right →<br>
+          <strong style="color:#61dafb; font-size:1.3em;">9 × 4 = 36</strong>
+        </p>
+      </div>
+      <div class="card">
+        <h3>🔍 Visual Help</h3>
+        <img src="hand-trick-9table.png" alt="9 Times Table Hand Trick" style="width:100%; border-radius:12px; box-shadow:0 0 8px #61dafb55;" />
+        <p style="color:#aaa; margin-top:10px;">Try this with your hands now! 🖐️🤩</p>
+      </div>
+      <button onclick="showTrickCategory('simple')" class="back-btn">← Back to Tricks</button>
+    </section>
+  `;
+}
       else {
         mainContent.innerHTML = `<section class="trick-details"><h2>Coming Soon</h2><p>This trick is under development.</p></section>`;
       }
     }
+        
 
     // ISO week number calculation function
     function getISOWeekNumber(date) {
