@@ -128,7 +128,7 @@
 
     function showTrickCategory(type) {
       const categories = {
-        simple: { title: "Simple Tricks", tricks: [ { id: 1, name: "Hand Trick For 9 Times Table" }, { id: 2, name: "Magic Age Trick" }, { id: 3, name: "Birthday Final Number" } ] },
+        simple: { title: "Simple Tricks", tricks: [ { id: 1, name: "Hand Trick For 9 Times Table" }, { id: 2, name: "Multiply Any Number By 5-Fast" }, { id: 3, name: "Your Lucky No." } ] },
         hard: { title: "Hard Tricks", tricks: [ { id: 4, name: "Phone Number Reveal" }, { id: 5, name: "Predict Your Height" }, { id: 6, name: "Birthday Number Pattern" } ] },
         complex: { title: "Complex Tricks", tricks: [ { id: 7, name: "🔮 The Number That Reveals Your DOB" }, { id: 8, name: "Zeller’s Formula" }, { id: 9, name: "ISO Week Number" } ] }
       };
@@ -139,14 +139,15 @@
           <button onclick="showTrick(${trick.id})">Play the Trick</button>
         </div>
       `).join('');
-      mainContent.innerHTML = `
-        <section class="tricks">
-          <h2>${selected.title}</h2>
-          <div class="tricks-grid">${trickCards}</div>
-          <button onclick="navigate('home')" class="back-btn">← Back to Categories</button>
-           <button onclick="alert('Professor-only section coming soon!')" class="prof-btn">More Complex Tricks (Only for Professors)</button>
-        </section>
-      `;
+     mainContent.innerHTML = `
+  <section class="tricks">
+    <h2>${selected.title}</h2>
+    <div class="tricks-grid">${trickCards}</div>
+    <button onclick="navigate('home')" class="back-btn">← Back to Categories</button>
+    ${type === 'complex' ? `<button onclick="alert('Professor-only section coming soon!')" class="prof-btn">More Complex Tricks (Only for Professors)</button>` : ''}
+  </section>
+`;
+
     }
 
     function showTrick(id) {
@@ -342,6 +343,123 @@
     </section>
   `;
 }
+  else if (id === 2) {
+    mainContent.innerHTML = `
+      <section class="trick-details">
+        <h2 style="color:#61dafb">✋ Multiply Any Number by 5 Fast</h2>
+        <div class="card">
+          <h3>🧠 Quick Math Trick</h3>
+          <p>Follow these simple steps to multiply any number by 5 instantly:</p>
+          <ul style="line-height: 1.8; padding-left: 20px;">
+            <li>If the number is <strong>even</strong>, divide it by 2 and add a 0 at the end.</li>
+            <li>If the number is <strong>odd</strong>, subtract 1, divide by 2, and add 5 at the end.</li>
+          </ul>
+          <p style="margin-top:10px; font-size:1.1em;">
+            <strong>Example (Even):</strong> 26 × 5 ➜ 26 ÷ 2 = 13 ➜ add 0 ➜ 130<br>
+            <strong>Example (Odd):</strong> 27 × 5 ➜ 27 - 1 = 26 ➜ ÷ 2 = 13 ➜ add 5 ➜ 135
+          </p>
+        </div>
+        <div class="card">
+          <h3>🔍 Visual Example</h3>
+          <img src="multiply-by-5-fast.png" alt="Multiply by 5 Fast Trick" style="width:100%; border-radius:12px; box-shadow:0 0 8px #61dafb55;" />
+        </div>
+        <button onclick="showTrickCategory('simple')" class="back-btn">← Back to Tricks</button>
+      </section>
+    `;
+  }
+else if (id === 3) {
+  mainContent.innerHTML = `
+    <section class="trick-details" style="display: flex; justify-content: center; align-items: center; min-height: 80vh;">
+      <div style="
+        background: #0f172a;
+        border-radius: 15px;
+        padding: 40px 30px;
+        max-width: 500px;
+        width: 100%;
+        text-align: center;
+        box-shadow: 0 0 30px #61dafb33;
+      ">
+        <h2 style="color: #61dafb; margin-bottom: 10px; font-size: 1.8rem;">🔮 Your Lucky no.</h2>
+        <p style="color: #dbe9f4; margin-bottom: 25px;">Think of any number, enter it below, and witness your lucky no.!</p>
+
+        <input 
+          type="number" 
+          id="trick3-input" 
+          placeholder="Enter any number"
+          style="
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            background: #1e293b;
+            color: #fff;
+            font-size: 1.2rem;
+          "
+        />
+
+        <button 
+          onclick="predictTrick3()" 
+          style="
+            margin-top: 20px;
+            padding: 12px 35px;
+            background: #61dafb;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 1rem;
+          "
+        >✨ Predict</button>
+
+        <div id="trick3-result" style="
+          margin-top: 30px;
+          font-size: 1.5rem;
+          font-weight: bold;
+          color: #dbe9f4;
+        "></div>
+
+        <div id="trick3-knowhow" style="display:none; margin-top: 20px;">
+          <button 
+            onclick="document.getElementById('trick3-knowhow-text').style.display='block'; this.style.display='none';"
+            style="
+              background: #334155;
+              color: #dbe9f4;
+              border: none;
+              border-radius: 6px;
+              padding: 10px 20px;
+              cursor: pointer;
+              font-size: 0.95rem;
+            "
+          >Want to Know How? 🤔</button>
+          <div id="trick3-knowhow-text" style="
+            display:none;
+            margin-top: 10px;
+            color: #dbe9f4;
+            font-size: 0.95rem;
+          ">👉 Go to the explanation section! 😝</div>
+        </div>
+
+        <button 
+          onclick="showTrickCategory('simple')" 
+          style="
+            margin-top: 20px;
+            background: #334155;
+            color: #dbe9f4;
+            border: none;
+            border-radius: 6px;
+            padding: 10px 25px;
+            cursor: pointer;
+            font-size: 0.95rem;
+          "
+        >← Back to Tricks</button>
+      </div>
+    </section>
+  `;
+}
+
+
+
+
       else {
         mainContent.innerHTML = `<section class="trick-details"><h2>Coming Soon</h2><p>This trick is under development.</p></section>`;
       }
@@ -413,6 +531,22 @@ function decodeDOB() {
 
   output.innerHTML = `<h3>🎉 Your Date of Birth: <strong>${day}/${month}/${year}</strong></h3>`;
 }
+
+function predictTrick3() {
+  const num = Number(document.getElementById('trick3-input').value);
+  if (isNaN(num)) {
+    document.getElementById('trick3-result').innerHTML = "Please enter a valid number.";
+    document.getElementById('trick3-knowhow').style.display = 'none';
+    return;
+  }
+
+  const result = (((num * 2) + 10) / 2) - num;
+
+  document.getElementById('trick3-result').innerHTML = `🎉 Your Lucky Number is <strong>${result}</strong>`;
+  document.getElementById('trick3-knowhow').style.display = 'block';
+  document.getElementById('trick3-knowhow-text').style.display = 'none';
+}
+
 
     // Other existing functions (calculateMagicNumber, decodeDOB, manual calculator, etc.) remain unchanged...
 
