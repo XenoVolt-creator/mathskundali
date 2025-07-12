@@ -129,7 +129,7 @@
     function showTrickCategory(type) {
       const categories = {
         simple: { title: "Simple Tricks", tricks: [ { id: 1, name: "Hand Trick For 9 Times Table" }, { id: 2, name: "Multiply Any Number By 5-Fast" }, { id: 3, name: "Your Lucky No." } ] },
-        hard: { title: "Hard Tricks", tricks: [ { id: 4, name: "Phone Number Reveal" }, { id: 5, name: "Predict Your Height" }, { id: 6, name: "Birthday Number Pattern" } ] },
+        hard: { title: "Hard Tricks", tricks: [ { id: 4, name: "Your Secret Number" }, { id: 5, name: "Predict Your Height" }, { id: 6, name: "Birthday Number Pattern" } ] },
         complex: { title: "Complex Tricks", tricks: [ { id: 7, name: "🔮 The Number That Reveals Your DOB" }, { id: 8, name: "Zeller’s Formula" }, { id: 9, name: "ISO Week Number" } ] }
       };
       const selected = categories[type];
@@ -456,6 +456,39 @@ else if (id === 3) {
     </section>
   `;
 }
+else if (id === 4) {
+  mainContent.innerHTML = `
+    <section class="trick-details">
+      <h2 style="color:#61dafb">🔐 Your Secret Number</h2>
+      <div class="card">
+        <h3>🧠 Steps to Perform:</h3>
+        <ol>
+          <li>Think of any 3-digit number where the <strong>first and last digits differ by at least 2</strong>.</li>
+          <li>Reverse the number.</li>
+          <li>Subtract the smaller number from the larger one.</li>
+          <li>Now reverse the result.</li>
+          <li>Add the two numbers.</li>
+        </ol>
+      </div>
+      <div class="card">
+      <div class="card">
+  <h3>🎮 Try It Yourself</h3>
+  <p>Think of a 3-digit number (first and last digit should differ by 2 or more), and enter it below:</p>
+  <input type="number" id="trick4-input" placeholder="Enter a 3-digit number" />
+  <button class="neon-btn" onclick="playTrick4()">✨ Predict</button>
+  <div id="trick4-result" style="margin-top: 15px; font-size: 1.2rem;"></div>
+</div>
+
+<div id="trick4-how" style="margin-top: 20px; display: none;">
+  <button class="neon-btn" onclick="document.getElementById('trick4-explanation').style.display='block'; this.style.display='none';">Want to Know How? 🤔</button>
+  <div id="trick4-explanation" style="display:none; margin-top:10px; color:#dbe9f4;">
+    👉 Go to the explanation section! 😝
+  </div>
+</div>
+    </section>
+  `;
+}
+
 
 
 
@@ -561,6 +594,31 @@ function predictTrick3() {
         navigate('home');
       }
     });
+
+    function playTrick4() {
+  const input = document.getElementById("trick4-input").value.trim();
+  const resultDiv = document.getElementById("trick4-result");
+  const howDiv = document.getElementById("trick4-how");
+
+  if (!/^\d{3}$/.test(input)) {
+    resultDiv.innerHTML = "⚠️ Please enter a valid 3-digit number.";
+    howDiv.style.display = "none";
+    return;
+  }
+
+  const num = parseInt(input);
+  const rev = parseInt(input.split("").reverse().join(""));
+  const big = Math.max(num, rev);
+  const small = Math.min(num, rev);
+  const diff = big - small;
+  const reversedDiff = parseInt(diff.toString().split("").reverse().join(""));
+  const final = diff + reversedDiff;
+
+ resultDiv.innerHTML = `🔐 Your secret number is: <strong style="color:#61dafb; font-size:1.3em;">${final}</strong>`;
+  howDiv.style.display = "block";
+  document.getElementById("trick4-explanation").style.display = "none";
+}
+
 
   </script>
 
