@@ -62,11 +62,10 @@ function navigate(view) {
       <section class="tricks">
         <h2>${selected.title}</h2>
         <div class="tricks-grid">${cardsHTML}</div>
-    <div style="display: flex; justify-content: space-between; margin-top: 20px;">
-  <button onclick="navigate('home')" class="back-btn">← Back to Categories</button>
-  ${type === 'complex' ? `<button onclick="alert('Professor-only section coming soon!')" class="prof-btn">More Complex Tricks (Only for Professors)</button>` : ''}
-</div>
-
+        <div style="display: flex; justify-content: space-between; margin-top: 20px;">
+          <button onclick="navigate('home')" class="back-btn">← Back to Categories</button>
+          ${view === 'complex' ? `<button onclick="alert('Professor-only section coming soon!')" class="prof-btn">More Complex Tricks (Only for Professors)</button>` : ''}
+        </div>
       </section>
     `;
     scrollToTop();
@@ -103,12 +102,33 @@ function navigate(view) {
 
 function showTrick(id) {
   switch (id) {
-    case 3: // Zeller’s formula trick
+    case 1:
+      mainContent.innerHTML = `
+        <section class="trick centered">
+          <h2 style="color:#61dafb">The Number is Always 5</h2>
+          <p>Choose any number in your mind, then follow these steps:</p>
+          <div class="explanation-steps">
+            <ol>
+              <li>Multiply your number by 2</li>
+              <li>Add 10</li>
+              <li>Divide by 2</li>
+              <li>Subtract your original number</li>
+            </ol>
+          </div>
+          <p class="big-result">Your answer is <strong>5</strong> 🎉</p>
+          <button onclick="navigate('simple')" class="back-btn">← Back to Tricks</button>
+        </section>
+      `;
+      break;
+
+    case 3:
       showZellersFormula();
       break;
-    case 11: // ISO Week Number Calculator
+
+    case 11:
       showIsoWeekCalculator();
       break;
+
     default:
       mainContent.innerHTML = `
         <section class="trick center">
@@ -212,14 +232,11 @@ function showIsoWeekCalculator() {
   });
 }
 
-// ISO Week Number Calculation (returns { year, week })
 function getISOWeek(year, month, day) {
-  // Month is 1-based for inputs; convert to 0-based for Date
-  const date = new Date(Date.UTC(year, month -1, day));
-  // Thursday in current week decides the year.
-  date.setUTCDate(date.getUTCDate() + 4 - (date.getUTCDay()||7));
-  const yearStart = new Date(Date.UTC(date.getUTCFullYear(),0,1));
-  const weekNo = Math.ceil((((date - yearStart) / 86400000) + 1)/7);
+  const date = new Date(Date.UTC(year, month - 1, day));
+  date.setUTCDate(date.getUTCDate() + 4 - (date.getUTCDay() || 7));
+  const yearStart = new Date(Date.UTC(date.getUTCFullYear(), 0, 1));
+  const weekNo = Math.ceil((((date - yearStart) / 86400000) + 1) / 7);
   return { year: date.getUTCFullYear(), week: weekNo };
 }
 
