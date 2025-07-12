@@ -411,3 +411,10 @@
         box-shadow: 0 0 12px #61dafb66;
       };
 
+
+      body {
+  background: linear-gradient(to bottom, #0f0f1c, #1a1a2f);
+  font-family: 'Segoe UI', sans-serif;
+}
+
+
