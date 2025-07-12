@@ -605,6 +605,14 @@ function predictTrick3() {
     howDiv.style.display = "none";
     return;
   }
+ const firstDigit = Number(input[0]);
+  const lastDigit = Number(input[2]);
+
+  if (Math.abs(firstDigit - lastDigit) < 2) {
+  resultDiv.innerHTML = '⚠️ Please enter a valid 3-digit number.';
+  howDiv.style.display = 'none';
+  return;
+}
 
   const num = parseInt(input);
   const rev = parseInt(input.split("").reverse().join(""));
