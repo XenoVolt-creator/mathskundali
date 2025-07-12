@@ -129,7 +129,7 @@
     function showTrickCategory(type) {
       const categories = {
         simple: { title: "Simple Tricks", tricks: [ { id: 1, name: "Hand Trick For 9 Times Table" }, { id: 2, name: "Multiply Any Number By 5-Fast" }, { id: 3, name: "Your Lucky No." } ] },
-        hard: { title: "Hard Tricks", tricks: [ { id: 4, name: "Your Secret Number" }, { id: 5, name: "Predict Your Height" }, { id: 6, name: "Birthday Number Pattern" } ] },
+        hard: { title: "Hard Tricks", tricks: [ { id: 4, name: "Your Secret Number" }, { id: 5, name: "I Know the Time You are thinking" }, { id: 6, name: "I know your phone number" } ] },
         complex: { title: "Complex Tricks", tricks: [ { id: 7, name: "🔮 The Number That Reveals Your DOB" }, { id: 8, name: "Zeller’s Formula" }, { id: 9, name: "ISO Week Number" } ] }
       };
       const selected = categories[type];
@@ -488,6 +488,365 @@ else if (id === 4) {
     </section>
   `;
 }
+else if (id === 5) {
+  mainContent.innerHTML = `
+    <section class="trick-details">
+      <h2 style="color:#61dafb">🕰️ I Know the Time You Are Thinking</h2>
+      
+      <div class="card">
+        <h3>🧙‍♂️ Steps:</h3>
+        <ol>
+          <li>Think of any time (hour & minutes) in 12-hour format.</li>
+          <li>Multiply the hour by 100.</li>
+          <li>Add the minutes (2 digits).</li>
+          <li>Multiply the result by 2.</li>
+          <li>Add 10.</li>
+          <li>Multiply the result by 5.</li>
+          <li>Paste your final number below 👇</li>
+        </ol>
+      </div>
+
+      <div class="card dob-calc">
+        <h3>🧮 Manual Calculator</h3>
+        <input type="text" id="manual-display-time" readonly placeholder="0" />
+        <div class="calc-buttons-time">
+          <button onclick="pressKeyTime('7')">7</button>
+          <button onclick="pressKeyTime('8')">8</button>
+          <button onclick="pressKeyTime('9')">9</button>
+          <button onclick="pressKeyTime('/')">/</button>
+          <button onclick="pressKeyTime('4')">4</button>
+          <button onclick="pressKeyTime('5')">5</button>
+          <button onclick="pressKeyTime('6')">6</button>
+          <button onclick="pressKeyTime('*')">*</button>
+          <button onclick="pressKeyTime('1')">1</button>
+          <button onclick="pressKeyTime('2')">2</button>
+          <button onclick="pressKeyTime('3')">3</button>
+          <button onclick="pressKeyTime('-')">-</button>
+          <button onclick="pressKeyTime('0')">0</button>
+          <button onclick="pressKeyTime('.')">.</button>
+          <button onclick="pressKeyTime('+')">+</button>
+          <button onclick="pressKeyTime('(')">(</button>
+          <button onclick="pressKeyTime(')')">)</button>
+          <button onclick="clearManualTime()">C</button>
+          <button onclick="deleteManualTime()">DEL</button>
+          <button onclick="calculateManualTime()">=</button>
+          <button onclick="copyManualResultTime()">Copy</button>
+        </div>
+      </div>
+<div class="neon-box">
+  <h3>🔓 Paste the Final Number Below</h3>
+  <input type="number" id="magic-time-number" placeholder="Enter final number here..." />
+  <button class="neon-btn" onclick="decodeTime()">Reveal My Time</button>
+  <div id="time-reveal" class="dob-output"></div>
+
+  <div id="time-how" style="margin-top: 20px; display: none;">
+    <button class="neon-btn" onclick="document.getElementById('time-explanation').style.display='block'; this.style.display='none';">Want to Know How? 🤔</button>
+    <div id="time-explanation" style="display:none; margin-top:10px; color:#dbe9f4;">
+      👉 Go to the explanation section! 😝
+    </div>
+  </div>
+</div>
+
+
+      <button onclick="showTrickCategory('hard')" class="back-btn">← Back to Tricks</button>
+
+      <style>
+        .calc-buttons-time {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 10px;
+          margin-top: 15px;
+        }
+        .calc-buttons-time button {
+          padding: 12px;
+          font-size: 1rem;
+          background-color: #2b2b3a;
+          color: #fff;
+          border: none;
+          border-radius: 6px;
+          cursor: pointer;
+          transition: background-color 0.2s;
+        }
+        .calc-buttons-time button:hover {
+          background-color: #3c3c4f;
+        }
+        #manual-display-time {
+          width: 100%;
+          font-size: 1.2rem;
+          padding: 10px;
+          background-color: #1c1c2b;
+          color: #fff;
+          border: none;
+          border-radius: 6px;
+          margin-bottom: 10px;
+          text-align: right;
+        }
+      </style>
+    </section>
+  `;
+}
+else if (id === 6) {
+  mainContent.innerHTML = `
+    <section class="trick-details">
+      <h2 style="color:#61dafb">📞 I Know Your Phone Number</h2>
+      <div class="card">
+        <h3>📋 Steps:</h3>
+        <ol>
+          <li>Think of the <b>last 8 digits</b> of your phone number.</li>
+          <li>Reverse those 8 digits.</li>
+          <li>Add 31415 to the reversed number.</li>
+          <li>Multiply the result by 7. This is your <b>final answer</b>.</li>
+          <li>Enter the final answer below 👇</li>
+        </ol>
+      </div>
+
+      <div class="card dob-calc">
+        <h3>🧮 Manual Calculator</h3>
+        <input type="text" id="manual-display-phone" readonly placeholder="0" />
+        <div class="calc-buttons-phone">
+          <button onclick="pressKeyPhone('7')">7</button>
+          <button onclick="pressKeyPhone('8')">8</button>
+          <button onclick="pressKeyPhone('9')">9</button>
+          <button onclick="pressKeyPhone('/')">/</button>
+          <button onclick="pressKeyPhone('4')">4</button>
+          <button onclick="pressKeyPhone('5')">5</button>
+          <button onclick="pressKeyPhone('6')">6</button>
+          <button onclick="pressKeyPhone('*')">*</button>
+          <button onclick="pressKeyPhone('1')">1</button>
+          <button onclick="pressKeyPhone('2')">2</button>
+          <button onclick="pressKeyPhone('3')">3</button>
+          <button onclick="pressKeyPhone('-')">-</button>
+          <button onclick="pressKeyPhone('0')">0</button>
+          <button onclick="pressKeyPhone('.')">.</button>
+          <button onclick="pressKeyPhone('+')">+</button>
+          <button onclick="pressKeyPhone('(')">(</button>
+          <button onclick="pressKeyPhone(')')">)</button>
+          <button onclick="clearManualPhone()">C</button>
+          <button onclick="deleteManualPhone()">DEL</button>
+          <button onclick="calculateManualPhone()">=</button>
+          <button onclick="copyManualResultPhone()">Copy</button>
+        </div>
+      </div>
+
+      <div class="neon-box">
+        <h3>🔓 Paste the Final Answer Below</h3>
+        <input type="number" id="phone-number-final" placeholder="Enter final answer here..." />
+        <button class="neon-btn" onclick="decodePhoneNumber()">Reveal My Number</button>
+        <div id="phone-reveal" class="dob-output"></div>
+      </div>
+
+      <button onclick="showTrickCategory('hard')" class="back-btn">← Back to Tricks</button>
+
+      <style>
+        .calc-buttons-phone {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 10px;
+          margin-top: 15px;
+        }
+        .calc-buttons-phone button {
+          padding: 12px;
+          font-size: 1rem;
+          background-color: #2b2b3a;
+          color: #fff;
+          border: none;
+          border-radius: 6px;
+          cursor: pointer;
+          transition: background-color 0.2s;
+        }
+        .calc-buttons-phone button:hover {
+          background-color: #3c3c4f;
+        }
+        #manual-display-phone {
+          width: 100%;
+          font-size: 1.2rem;
+          padding: 10px;
+          background-color: #1c1c2b;
+          color: #fff;
+          border: none;
+          border-radius: 6px;
+          margin-bottom: 10px;
+          text-align: right;
+        }
+      </style>
+    </section>
+  `;
+}
+else if (id === 6) {
+  mainContent.innerHTML = `
+    <section class="trick-details">
+      <h2 style="color:#61dafb">📞 I Know Your Phone Number</h2>
+      <div class="card">
+        <h3>📋 Steps:</h3>
+        <ol>
+          <li>Think of the <b>last 8 digits</b> of your phone number.</li>
+          <li>Reverse those 8 digits.</li>
+          <li>Add 31415 to the reversed number.</li>
+          <li>Multiply the result by 7. This is your <b>final answer</b>.</li>
+          <li>Enter the final answer below 👇</li>
+        </ol>
+      </div>
+
+      <div class="card dob-calc">
+        <h3>🧮 Manual Calculator</h3>
+        <input type="text" id="manual-display-phone" readonly placeholder="0" />
+        <div class="calc-buttons-phone">
+          <button onclick="pressKeyPhone('7')">7</button>
+          <button onclick="pressKeyPhone('8')">8</button>
+          <button onclick="pressKeyPhone('9')">9</button>
+          <button onclick="pressKeyPhone('/')">/</button>
+          <button onclick="pressKeyPhone('4')">4</button>
+          <button onclick="pressKeyPhone('5')">5</button>
+          <button onclick="pressKeyPhone('6')">6</button>
+          <button onclick="pressKeyPhone('*')">*</button>
+          <button onclick="pressKeyPhone('1')">1</button>
+          <button onclick="pressKeyPhone('2')">2</button>
+          <button onclick="pressKeyPhone('3')">3</button>
+          <button onclick="pressKeyPhone('-')">-</button>
+          <button onclick="pressKeyPhone('0')">0</button>
+          <button onclick="pressKeyPhone('.')">.</button>
+          <button onclick="pressKeyPhone('+')">+</button>
+          <button onclick="pressKeyPhone('(')">(</button>
+          <button onclick="pressKeyPhone(')')">)</button>
+          <button onclick="clearManualPhone()">C</button>
+          <button onclick="deleteManualPhone()">DEL</button>
+          <button onclick="calculateManualPhone()">=</button>
+          <button onclick="copyManualResultPhone()">Copy</button>
+        </div>
+      </div>
+
+      <div class="neon-box">
+        <h3>🔓 Paste the Final Answer Below</h3>
+        <input type="number" id="phone-number-final" placeholder="Enter final answer here..." />
+        <button class="neon-btn" onclick="decodePhoneNumber()">Reveal My Number</button>
+        <div id="phone-reveal" class="dob-output"></div>
+      </div>
+
+      <button onclick="showTrickCategory('hard')" class="back-btn">← Back to Tricks</button>
+
+      <style>
+        .calc-buttons-phone {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 10px;
+          margin-top: 15px;
+        }
+        .calc-buttons-phone button {
+          padding: 12px;
+          font-size: 1rem;
+          background-color: #2b2b3a;
+          color: #fff;
+          border: none;
+          border-radius: 6px;
+          cursor: pointer;
+          transition: background-color 0.2s;
+        }
+        .calc-buttons-phone button:hover {
+          background-color: #3c3c4f;
+        }
+        #manual-display-phone {
+          width: 100%;
+          font-size: 1.2rem;
+          padding: 10px;
+          background-color: #1c1c2b;
+          color: #fff;
+          border: none;
+          border-radius: 6px;
+          margin-bottom: 10px;
+          text-align: right;
+        }
+      </style>
+    </section>
+  `;
+}
+else if (id === 6) {
+  mainContent.innerHTML = `
+    <section class="trick-details">
+      <h2 style="color:#61dafb">📞 I Know Your Phone Number</h2>
+      <div class="card">
+        <h3>📋 Steps:</h3>
+        <ol>
+          <li>Think of the <b>last 8 digits</b> of your phone number.</li>
+          <li>Reverse those 8 digits.</li>
+          <li>Add 31415 to the reversed number.</li>
+          <li>Multiply the result by 7. This is your <b>final answer</b>.</li>
+          <li>Enter the final answer below 👇</li>
+        </ol>
+      </div>
+
+      <div class="card dob-calc">
+        <h3>🧮 Manual Calculator</h3>
+        <input type="text" id="manual-display-phone" readonly placeholder="0" />
+        <div class="calc-buttons-phone">
+          <button onclick="pressKeyPhone('7')">7</button>
+          <button onclick="pressKeyPhone('8')">8</button>
+          <button onclick="pressKeyPhone('9')">9</button>
+          <button onclick="pressKeyPhone('/')">/</button>
+          <button onclick="pressKeyPhone('4')">4</button>
+          <button onclick="pressKeyPhone('5')">5</button>
+          <button onclick="pressKeyPhone('6')">6</button>
+          <button onclick="pressKeyPhone('*')">*</button>
+          <button onclick="pressKeyPhone('1')">1</button>
+          <button onclick="pressKeyPhone('2')">2</button>
+          <button onclick="pressKeyPhone('3')">3</button>
+          <button onclick="pressKeyPhone('-')">-</button>
+          <button onclick="pressKeyPhone('0')">0</button>
+          <button onclick="pressKeyPhone('.')">.</button>
+          <button onclick="pressKeyPhone('+')">+</button>
+          <button onclick="pressKeyPhone('(')">(</button>
+          <button onclick="pressKeyPhone(')')">)</button>
+          <button onclick="clearManualPhone()">C</button>
+          <button onclick="deleteManualPhone()">DEL</button>
+          <button onclick="calculateManualPhone()">=</button>
+          <button onclick="copyManualResultPhone()">Copy</button>
+        </div>
+      </div>
+
+      <div class="neon-box">
+        <h3>🔓 Paste the Final Answer Below</h3>
+        <input type="number" id="phone-number-final" placeholder="Enter final answer here..." />
+        <button class="neon-btn" onclick="decodePhoneNumber()">Reveal My Number</button>
+        <div id="phone-reveal" class="dob-output"></div>
+      </div>
+
+      <button onclick="showTrickCategory('hard')" class="back-btn">← Back to Tricks</button>
+
+      <style>
+        .calc-buttons-phone {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 10px;
+          margin-top: 15px;
+        }
+        .calc-buttons-phone button {
+          padding: 12px;
+          font-size: 1rem;
+          background-color: #2b2b3a;
+          color: #fff;
+          border: none;
+          border-radius: 6px;
+          cursor: pointer;
+          transition: background-color 0.2s;
+        }
+        .calc-buttons-phone button:hover {
+          background-color: #3c3c4f;
+        }
+        #manual-display-phone {
+          width: 100%;
+          font-size: 1.2rem;
+          padding: 10px;
+          background-color: #1c1c2b;
+          color: #fff;
+          border: none;
+          border-radius: 6px;
+          margin-bottom: 10px;
+          text-align: right;
+        }
+      </style>
+    </section>
+  `;
+}
+
 
 
 
@@ -627,6 +986,146 @@ function predictTrick3() {
   document.getElementById("trick4-explanation").style.display = "none";
 }
 
+let manualExpressionTime = '';
+
+function pressKeyTime(val) {
+  manualExpressionTime += val;
+  document.getElementById('manual-display-time').value = manualExpressionTime;
+}
+
+function calculateManualTime() {
+  try {
+    const result = eval(manualExpressionTime);
+    document.getElementById('manual-display-time').value = result;
+    manualExpressionTime = result.toString();
+  } catch (e) {
+    document.getElementById('manual-display-time').value = "Error";
+    manualExpressionTime = '';
+  }
+}
+
+function deleteManualTime() {
+  manualExpressionTime = manualExpressionTime.slice(0, -1);
+  document.getElementById('manual-display-time').value = manualExpressionTime;
+}
+
+function clearManualTime() {
+  manualExpressionTime = '';
+  document.getElementById('manual-display-time').value = '';
+}
+
+function copyManualResultTime() {
+  const result = document.getElementById('manual-display-time').value;
+  if (result && result !== "Error") {
+    navigator.clipboard.writeText(result);
+  }
+}
+
+
+function revealTimeTrick() {
+  const finalNumber = Number(document.getElementById('time-trick-input').value);
+  const resultDiv = document.getElementById('time-trick-result');
+
+  if (isNaN(finalNumber) || finalNumber <= 0) {
+    resultDiv.innerHTML = "⚠️ Please enter a valid number.";
+    return;
+  }
+
+  const step1 = finalNumber - 50;
+  const quotient = Math.floor(step1 / 10);
+
+  const hour = Math.floor(quotient / 100);
+  const minutes = quotient % 100;
+
+  resultDiv.innerHTML = `⏰ You were thinking: <strong style="color:#61dafb; font-size:1.3em;">${hour}:${minutes.toString().padStart(2, '0')}</strong>`;
+}
+
+function decodeTime() {
+  const input = Number(document.getElementById("magic-time-number").value);
+  const output = document.getElementById("time-reveal");
+
+  if (!input || input <= 0) {
+    output.innerHTML = `<p>Please enter a valid number.</p>`;
+    document.getElementById('time-how').style.display = "none";
+    return;
+  }
+
+  const step1 = input - 50;
+  const quotient = Math.floor(step1 / 10);
+  const hour = Math.floor(quotient / 100);
+  const minutes = quotient % 100;
+
+  output.innerHTML = `<h3>⏰ You were thinking: <strong>${hour}:${minutes.toString().padStart(2, '0')}</strong></h3>`;
+
+  document.getElementById('time-how').style.display = "block";
+  document.getElementById('time-explanation').style.display = "none";
+}
+
+let manualExpressionPhone = '';
+
+function pressKeyPhone(val) {
+  manualExpressionPhone += val;
+  document.getElementById('manual-display-phone').value = manualExpressionPhone;
+}
+function calculateManualPhone() {
+  try {
+    const result = eval(manualExpressionPhone);
+    document.getElementById('manual-display-phone').value = result;
+    manualExpressionPhone = result.toString();
+  } catch (e) {
+    document.getElementById('manual-display-phone').value = "Error";
+    manualExpressionPhone = '';
+  }
+}
+function deleteManualPhone() {
+  manualExpressionPhone = manualExpressionPhone.slice(0, -1);
+  document.getElementById('manual-display-phone').value = manualExpressionPhone;
+}
+function clearManualPhone() {
+  manualExpressionPhone = '';
+  document.getElementById('manual-display-phone').value = '';
+}
+function copyManualResultPhone() {
+  const result = document.getElementById('manual-display-phone').value;
+  if (result && result !== "Error") {
+    navigator.clipboard.writeText(result);
+  }
+}
+function decodePhoneNumber() {
+  const finalInput = document.getElementById('phone-number-final').value.trim();
+  const outputDiv = document.getElementById('phone-reveal');
+
+  if (!finalInput || isNaN(finalInput)) {
+    outputDiv.textContent = "⚠️ Please enter a valid number!";
+    return;
+  }
+
+  const finalNum = Number(finalInput);
+  if (finalNum % 7 !== 0) {
+    outputDiv.textContent = "⚠️ The final number must be divisible by 7!";
+    return;
+  }
+
+  const reversedNumber = (finalNum / 7) - 31415;
+  if (!Number.isInteger(reversedNumber) || reversedNumber < 0) {
+    outputDiv.textContent = "⚠️ Invalid final answer entered!";
+    return;
+  }
+
+  const reversedStr = reversedNumber.toString();
+  const originalReversed = reversedStr.split('').reverse().join('');
+
+  const numberWith98 = '98' + originalReversed;
+  const numberWith97 = '97' + originalReversed;
+
+  outputDiv.innerHTML = `
+    <p>🔎 Decoded Number Possibilities:</p>
+    <p><b>With 98:</b> ${numberWith98}</p>
+    <p><b>With 97:</b> ${numberWith97}</p>
+  `;
+}
+
+
 
   </script>
 
@@ -640,4 +1139,4 @@ function predictTrick3() {
 <script src="script.js"></script>
 
 </body>
-</html
+</html>
