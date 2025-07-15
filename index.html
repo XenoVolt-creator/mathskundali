@@ -112,19 +112,123 @@
             <p>We’re a group of students passionate about the mystical beauty of math. Mathskundali is our attempt to bring prediction and fun together through numbers. Our team — <strong>Bisaj Khadka</strong>, <strong>Yubaraj Yadav</strong>, and <strong>Samuel Aryal</strong> — created <strong>Mathskundali</strong> to show how math can surprise, predict, and entertain!</p>
           </section>
         `;
-      } else if (view === 'explanations') {
-        mainContent.innerHTML = `
-          <section class="explanations">
-            <h2>Explanations</h2>
-            <ul>
-              <li><strong>Simple Tricks:</strong> Always 5, Age Prediction, Birthday Day</li>
-              <li><strong>Hard Tricks:</strong> Height Trick, Phone Number Reveal</li>
-              <li><strong>Complex Tricks:</strong> I Know Your DOB, Zeller's Formula, ISO Week</li>
-            </ul>
-          </section>
-        `;
-      }
+        }else if (view === 'explanations') {
+  mainContent.innerHTML = `
+    <section class="hero">
+      <h2>How Do These Tricks Work? 🤯</h2>
+      <p>Explore the hidden math and logic behind every trick. Choose a category below to get started!</p>
+      <div class="category-buttons">
+        <button onclick="showExplanationCategory('simple')">Simple Tricks</button>
+        <button onclick="showExplanationCategory('hard')">Hard Tricks</button>
+        <button onclick="showExplanationCategory('complex')">Complex Tricks</button>
+      </div>
+    </section>
+  `;
+}
+
+
     }
+   function navigate(view) {
+  const mainContent = document.getElementById('main-content');
+
+  if (view === 'home' || view === 'tricks') {
+    mainContent.innerHTML = `
+      <section class="hero">
+        <h2>Unlocking the Magic of Numbers</h2>
+        <p>Welcome to Mathskundali, where we blend mathematical prediction with magic!</p>
+        <div class="category-buttons">
+          <button onclick="showTrickCategory('simple')">Simple Tricks</button>
+          <button onclick="showTrickCategory('hard')">Hard Tricks</button>
+          <button onclick="showTrickCategory('complex')">Complex Tricks</button>
+        </div>
+      </section>
+    `;
+  } else if (view === 'about') {
+    mainContent.innerHTML = `
+      <section class="about">
+        <h2>About Us</h2>
+        <p>We’re a group of students passionate about the mystical beauty of math. Mathskundali is our attempt to bring prediction and fun together through numbers. Our team — <strong>Bisaj Khadka</strong>, <strong>Yubaraj Yadav</strong>, and <strong>Samuel Aryal</strong> — created <strong>Mathskundali</strong> to show how math can surprise, predict, and entertain!</p>
+      </section>
+    `;
+  } else if (view === 'explanations') {
+    mainContent.innerHTML = `
+      <section class="hero">
+        <h2>Want to Know How?</h2>
+        <p>Select a category below to understand the math behind the magic.</p>
+        <div class="category-buttons">
+          <button onclick="showExplanationCategory('simple')">Simple Tricks</button>
+          <button onclick="showExplanationCategory('hard')">Hard Tricks</button>
+          <button onclick="showExplanationCategory('complex')">Complex Tricks</button>
+        </div>
+      </section>
+    `;
+  }
+}
+function showExplanationCategory(type) {
+  const explanations = {
+    simple: [
+      {
+        title: "🖐 Trick 1 – 9 Times Table (Hand)",
+        desc: "This trick lets you use your fingers to find 9 times any number from 1 to 10. You put down the finger that matches the number. The fingers to the left give the tens digit, and the ones to the right give the units. For example, for 9×4, the fourth finger is down. You have 3 fingers left of it and 6 to the right = 36."
+      },
+      {
+        title: "🔢 Trick 2 – Multiply Any Number By 5 Fast",
+        desc: "Just divide the number by 2 and multiply it by 10. For example, 48×5 becomes 48÷2 = 24, then ×10 = 240. Fast mental math!"
+      },
+      {
+        title: "🍀 Trick 3 – Your Lucky Number",
+        desc: "Whatever number you choose, the final result will always be 5 due to the algebraic pattern: ((x×2)+10)/2 - x = 5."
+      }
+    ],
+    hard: [
+      {
+        title: "🔐 Trick 4 – Your Secret Number",
+        desc: "Start with a 3-digit number where the first and last digits differ by 2 or more. Reverse it, subtract smaller from bigger, then reverse the result and add. It always ends up at 1089."
+      },
+      {
+        title: "⏰ Trick 5 – I Know the Time You’re Thinking",
+        desc: "You do a series of math operations using your thought time (hours and minutes). When reversed, it reveals your time. The reverse logic extracts hours and minutes from the calculated number."
+      },
+      {
+        title: "📞 Trick 6 – I Know Your Phone Number",
+        desc: "You reverse your phone digits, add a fixed number (31415), and multiply by 7. This process hides your number inside a larger one. When decoded (reversed math), it reveals the last 8 digits."
+      }
+    ],
+    complex: [
+      {
+        title: "🔮 Trick 7 – The Number That Reveals Your DOB",
+        desc: "You calculate a big number using your DOB. The trick uses a fixed multiplier to pack day, month, and year into a single number. Reversing the math extracts all three parts."
+      },
+      {
+        title: "📅 Trick 8 – Zeller’s Formula",
+        desc: "This uses Zeller’s congruence formula to calculate the day of the week for any date. The user can input BS dates, which get converted to AD first before applying the formula."
+      },
+      {
+        title: "🧠 Trick 9 – ISO Week Number",
+        desc: "This trick uses ISO calendar logic. You input a date, and the trick shows you what week number it falls in based on ISO 8601 standard (weeks start on Monday, and week 1 is the one with Jan 4)."
+      }
+    ]
+  };
+
+  const selected = explanations[type];
+  const cards = selected.map(trick => `
+    <div class="card">
+      <h3>${trick.title}</h3>
+      <p>${trick.desc}</p>
+    </div>
+  `).join('');
+
+  const mainContent = document.getElementById('main-content');
+  mainContent.innerHTML = `
+    <section class="explanation-category">
+      <h2>${type.charAt(0).toUpperCase() + type.slice(1)} Trick Explanations</h2>
+      <div class="tricks-grid">${cards}</div>
+      <button onclick="navigate('explanations')" class="back-btn">← Back to Categories</button>
+    </section>
+  `;
+}
+
+ 
 
     function showTrickCategory(type) {
       const categories = {
