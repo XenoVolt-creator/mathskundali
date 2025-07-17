@@ -248,7 +248,7 @@ function showExplanationCategory(type) {
     <h2>${selected.title}</h2>
     <div class="tricks-grid">${trickCards}</div>
     <button onclick="navigate('home')" class="back-btn">← Back to Categories</button>
-    ${type === 'complex' ? `<button onclick="alert('Professor-only section coming soon!')" class="prof-btn">More Complex Tricks (Only for Professors)</button>` : ''}
+    ${type === 'complex' ? `<button onclick="showTrick(10)" class="prof-btn">More Complex Tricks (Only for Professors)</button>
   </section>
 `;
 
