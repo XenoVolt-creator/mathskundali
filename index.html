@@ -233,7 +233,7 @@ function showExplanationCategory(type) {
     function showTrickCategory(type) {
       const categories = {
         simple: { title: "Simple Tricks", tricks: [ { id: 1, name: "Hand Trick For 9 Times Table" }, { id: 2, name: "Multiply Any Number By 5-Fast" }, { id: 3, name: "Your Lucky No." } ] },
-        hard: { title: "Hard Tricks", tricks: [ { id: 4, name: "Your Secret Number" }, { id: 5, name: "I Know the Time You are thinking" }, { id: 6, name: "I know your phone number" } ] },
+        hard: { title: "Hard Tricks", tricks: [ { id: 4, name: "Phone Number Reveal" }, { id: 5, name: "Predict Your Height" }, { id: 6, name: "Birthday Number Pattern" } ] },
         complex: { title: "Complex Tricks", tricks: [ { id: 7, name: "🔮 The Number That Reveals Your DOB" }, { id: 8, name: "Zeller’s Formula" }, { id: 9, name: "ISO Week Number" } ] }
       };
       const selected = categories[type];
@@ -249,9 +249,9 @@ function showExplanationCategory(type) {
     <div class="tricks-grid">${trickCards}</div>
     <button onclick="navigate('home')" class="back-btn">← Back to Categories</button>
     ${type === 'complex' ? `<button onclick="showTrick(10)" class="prof-btn">More Complex Tricks (Only for Professors)</button>
+` : ''}
   </section>
 `;
-
     }
 
     function showTrick(id) {
