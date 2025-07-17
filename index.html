@@ -950,6 +950,50 @@ else if (id === 6) {
     </section>
   `;
 }
+  else if (id === 10) {
+  mainContent.innerHTML = `
+    <section class="trick-details">
+      <h2 style="color:#61dafb">🔮 CRT Number Predictor (Mod 7, 11, 13)</h2>
+
+      <!-- Static Instructions card -->
+      <div class="card" style="margin-bottom: 20px; font-size: 1.1rem; color: #61dafb;">
+        <h3>📋 Instructions:</h3>
+        <ol>
+          <li>Think of any number between <strong>0 and 999</strong>.</li>
+          <li>Calculate the remainder when your number is divided by <strong>7</strong>. This remainder will be between 0 and 6.</li>
+          <li>Calculate the remainder when your number is divided by <strong>11</strong>. This remainder will be between 0 and 10.</li>
+          <li>Calculate the remainder when your number is divided by <strong>13</strong>. This remainder will be between 0 and 12.</li>
+          <li>Enter these three remainders into the input fields below.</li>
+          <li>Click <em>Reveal My Number</em> to see the predicted number and calculation steps.</li>
+        </ol>
+      </div>
+
+      <!-- Input card -->
+      <div class="card">
+        <p>Enter the remainders from your calculations:</p>
+        <label>➗ Remainder when divided by <strong>7</strong>:</label>
+        <input type="number" id="mod7" placeholder="0 to 6" min="0" max="6"/><br><br>
+
+        <label>➗ Remainder when divided by <strong>11</strong>:</label>
+        <input type="number" id="mod11" placeholder="0 to 10" min="0" max="10"/><br><br>
+
+        <label>➗ Remainder when divided by <strong>13</strong>:</label>
+        <input type="number" id="mod13" placeholder="0 to 12" min="0" max="12"/><br><br>
+
+        <button class="neon-btn" onclick="predictCRT()">🔍 Reveal My Number</button>
+      </div>
+
+      <!-- Prediction output -->
+      <div class="card" style="margin-top:20px;">
+        <h3>🎯 Predicted Number:</h3>
+        <div id="crt-reveal-output" style="font-size: 1.5rem; color: #61dafb;"></div>
+      </div>
+
+      <button onclick="showTrickCategory('complex')" class="back-btn">← Back to Tricks</button>
+    </section>
+  `;
+}
+
 
 
 
@@ -1041,6 +1085,71 @@ function predictTrick3() {
   document.getElementById('trick3-result').innerHTML = `🎉 Your Lucky Number is <strong>${result}</strong>`;
   document.getElementById('trick3-knowhow').style.display = 'block';
   document.getElementById('trick3-knowhow-text').style.display = 'none';
+}
+function predictCRT() {
+  const a1 = parseInt(document.getElementById('mod7').value);
+  const a2 = parseInt(document.getElementById('mod11').value);
+  const a3 = parseInt(document.getElementById('mod13').value);
+
+  if (
+    isNaN(a1) || a1 < 0 || a1 > 6 ||
+    isNaN(a2) || a2 < 0 || a2 > 10 ||
+    isNaN(a3) || a3 < 0 || a3 > 12
+  ) {
+    document.getElementById('crt-reveal-output').innerHTML = "⚠️ Please enter valid remainders.";
+    document.getElementById('crt-step-output').innerText = "";
+    return;
+  }
+
+  const m1 = 7, m2 = 11, m3 = 13;
+  const M = m1 * m2 * m3; // 1001
+
+  const M1 = M / m1; // 143
+  const M2 = M / m2; // 91
+  const M3 = M / m3; // 77
+
+  const x1 = modInverse(M1, m1);
+  const x2 = modInverse(M2, m2);
+  const x3 = modInverse(M3, m3);
+
+  const x = (a1 * M1 * x1 + a2 * M2 * x2 + a3 * M3 * x3) % M;
+  const result = (x + M) % M;
+
+  let steps = `Step 1: Input remainders\n`;
+  steps += `Remainder mod ${m1}: ${a1}\n`;
+  steps += `Remainder mod ${m2}: ${a2}\n`;
+  steps += `Remainder mod ${m3}: ${a3}\n\n`;
+
+  steps += `Step 2: Calculate partial products\n`;
+  steps += `M = ${M} = ${m1} × ${m2} × ${m3}\n`;
+  steps += `M1 = ${M1}, M2 = ${M2}, M3 = ${M3}\n\n`;
+
+  steps += `Step 3: Compute modular inverses\n`;
+  steps += `Inverse of M1 mod ${m1} = ${x1}\n`;
+  steps += `Inverse of M2 mod ${m2} = ${x2}\n`;
+  steps += `Inverse of M3 mod ${m3} = ${x3}\n\n`;
+
+  steps += `Step 4: Calculate result\n`;
+  steps += `x = (a1×M1×x1 + a2×M2×x2 + a3×M3×x3) mod M\n`;
+  steps += `  = (${a1}×${M1}×${x1} + ${a2}×${M2}×${x2} + ${a3}×${M3}×${x3}) mod ${M}\n`;
+  steps += `  = ${x}\n\n`;
+
+  steps += `Final predicted number: ${result.toString().padStart(3, '0')}`;
+
+  
+  document.getElementById('crt-reveal-output').innerHTML = `🎉 <strong>${result.toString().padStart(3, '0')}</strong>`;
+}
+
+function modInverse(a, m) {
+  const [g, x] = extendedGCD_Int(a, m);
+  if (g !== 1) return null;
+  return (x % m + m) % m;
+}
+
+function extendedGCD_Int(a, b) {
+  if (b === 0) return [a, 1, 0];
+  const [g, x1, y1] = extendedGCD_Int(b, a % b);
+  return [g, y1, x1 - Math.floor(a / b) * y1];
 }
 
 
