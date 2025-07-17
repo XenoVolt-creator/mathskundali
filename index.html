@@ -112,45 +112,7 @@
             <p>We’re a group of students passionate about the mystical beauty of math. Mathskundali is our attempt to bring prediction and fun together through numbers. Our team — <strong>Bisaj Khadka</strong>, <strong>Yubaraj Yadav</strong>, and <strong>Samuel Aryal</strong> — created <strong>Mathskundali</strong> to show how math can surprise, predict, and entertain!</p>
           </section>
         `;
-        }else if (view === 'explanations') {
-  mainContent.innerHTML = `
-    <section class="hero">
-      <h2>How Do These Tricks Work? 🤯</h2>
-      <p>Explore the hidden math and logic behind every trick. Choose a category below to get started!</p>
-      <div class="category-buttons">
-        <button onclick="showExplanationCategory('simple')">Simple Tricks</button>
-        <button onclick="showExplanationCategory('hard')">Hard Tricks</button>
-        <button onclick="showExplanationCategory('complex')">Complex Tricks</button>
-      </div>
-    </section>
-  `;
-}
-
-
-    }
-   function navigate(view) {
-  const mainContent = document.getElementById('main-content');
-
-  if (view === 'home' || view === 'tricks') {
-    mainContent.innerHTML = `
-      <section class="hero">
-        <h2>Unlocking the Magic of Numbers</h2>
-        <p>Welcome to Mathskundali, where we blend mathematical prediction with magic!</p>
-        <div class="category-buttons">
-          <button onclick="showTrickCategory('simple')">Simple Tricks</button>
-          <button onclick="showTrickCategory('hard')">Hard Tricks</button>
-          <button onclick="showTrickCategory('complex')">Complex Tricks</button>
-        </div>
-      </section>
-    `;
-  } else if (view === 'about') {
-    mainContent.innerHTML = `
-      <section class="about">
-        <h2>About Us</h2>
-        <p>We’re a group of students passionate about the mystical beauty of math. Mathskundali is our attempt to bring prediction and fun together through numbers. Our team — <strong>Bisaj Khadka</strong>, <strong>Yubaraj Yadav</strong>, and <strong>Samuel Aryal</strong> — created <strong>Mathskundali</strong> to show how math can surprise, predict, and entertain!</p>
-      </section>
-    `;
-  } else if (view === 'explanations') {
+      }  else if (view === 'explanations') {
     mainContent.innerHTML = `
       <section class="hero">
         <h2>Want to Know How?</h2>
@@ -164,76 +126,11 @@
     `;
   }
 }
-function showExplanationCategory(type) {
-  const explanations = {
-    simple: [
-      {
-        title: "🖐 Trick 1 – 9 Times Table (Hand)",
-        desc: "This trick lets you use your fingers to find 9 times any number from 1 to 10. You put down the finger that matches the number. The fingers to the left give the tens digit, and the ones to the right give the units. For example, for 9×4, the fourth finger is down. You have 3 fingers left of it and 6 to the right = 36."
-      },
-      {
-        title: "🔢 Trick 2 – Multiply Any Number By 5 Fast",
-        desc: "Just divide the number by 2 and multiply it by 10. For example, 48×5 becomes 48÷2 = 24, then ×10 = 240. Fast mental math!"
-      },
-      {
-        title: "🍀 Trick 3 – Your Lucky Number",
-        desc: "Whatever number you choose, the final result will always be 5 due to the algebraic pattern: ((x×2)+10)/2 - x = 5."
-      }
-    ],
-    hard: [
-      {
-        title: "🔐 Trick 4 – Your Secret Number",
-        desc: "Start with a 3-digit number where the first and last digits differ by 2 or more. Reverse it, subtract smaller from bigger, then reverse the result and add. It always ends up at 1089."
-      },
-      {
-        title: "⏰ Trick 5 – I Know the Time You’re Thinking",
-        desc: "You do a series of math operations using your thought time (hours and minutes). When reversed, it reveals your time. The reverse logic extracts hours and minutes from the calculated number."
-      },
-      {
-        title: "📞 Trick 6 – I Know Your Phone Number",
-        desc: "You reverse your phone digits, add a fixed number (31415), and multiply by 7. This process hides your number inside a larger one. When decoded (reversed math), it reveals the last 8 digits."
-      }
-    ],
-    complex: [
-      {
-        title: "🔮 Trick 7 – The Number That Reveals Your DOB",
-        desc: "You calculate a big number using your DOB. The trick uses a fixed multiplier to pack day, month, and year into a single number. Reversing the math extracts all three parts."
-      },
-      {
-        title: "📅 Trick 8 – Zeller’s Formula",
-        desc: "This uses Zeller’s congruence formula to calculate the day of the week for any date. The user can input BS dates, which get converted to AD first before applying the formula."
-      },
-      {
-        title: "🧠 Trick 9 – ISO Week Number",
-        desc: "This trick uses ISO calendar logic. You input a date, and the trick shows you what week number it falls in based on ISO 8601 standard (weeks start on Monday, and week 1 is the one with Jan 4)."
-      }
-    ]
-  };
-
-  const selected = explanations[type];
-  const cards = selected.map(trick => `
-    <div class="card">
-      <h3>${trick.title}</h3>
-      <p>${trick.desc}</p>
-    </div>
-  `).join('');
-
-  const mainContent = document.getElementById('main-content');
-  mainContent.innerHTML = `
-    <section class="explanation-category">
-      <h2>${type.charAt(0).toUpperCase() + type.slice(1)} Trick Explanations</h2>
-      <div class="tricks-grid">${cards}</div>
-      <button onclick="navigate('explanations')" class="back-btn">← Back to Categories</button>
-    </section>
-  `;
-}
-
- 
 
     function showTrickCategory(type) {
       const categories = {
         simple: { title: "Simple Tricks", tricks: [ { id: 1, name: "Hand Trick For 9 Times Table" }, { id: 2, name: "Multiply Any Number By 5-Fast" }, { id: 3, name: "Your Lucky No." } ] },
-        hard: { title: "Hard Tricks", tricks: [ { id: 4, name: "Phone Number Reveal" }, { id: 5, name: "Predict Your Height" }, { id: 6, name: "Birthday Number Pattern" } ] },
+        hard: { title: "Hard Tricks", tricks: [ { id: 4, name: "Your Secret Number" }, { id: 5, name: "I know the TIme your are Thinking" }, { id: 6, name: "I know your phone umber" } ] },
         complex: { title: "Complex Tricks", tricks: [ { id: 7, name: "🔮 The Number That Reveals Your DOB" }, { id: 8, name: "Zeller’s Formula" }, { id: 9, name: "ISO Week Number" } ] }
       };
       const selected = categories[type];
@@ -252,6 +149,7 @@ function showExplanationCategory(type) {
 ` : ''}
   </section>
 `;
+
     }
 
     function showTrick(id) {
@@ -560,7 +458,82 @@ else if (id === 3) {
     </section>
   `;
 }
+else if (id === 10) {
+  mainContent.innerHTML = `
+    <section class="trick-details">
+      <h2 style="color:#61dafb">🔮 CRT Number Predictor (Mod 7, 11, 13)</h2>
+
+      <!-- Static Instructions card -->
+      <div class="card" style="margin-bottom: 20px; font-size: 1.1rem; color: #61dafb;">
+        <h3>📋 Instructions:</h3>
+        <ol>
+          <li>Think of any number between <strong>0 and 999</strong>.</li>
+          <li>Calculate the remainder when your number is divided by <strong>7</strong>. This remainder will be between 0 and 6.</li>
+          <li>Calculate the remainder when your number is divided by <strong>11</strong>. This remainder will be between 0 and 10.</li>
+          <li>Calculate the remainder when your number is divided by <strong>13</strong>. This remainder will be between 0 and 12.</li>
+          <li>Enter these three remainders into the input fields below.</li>
+          <li>Click <em>Reveal My Number</em> to see the predicted number and calculation steps.</li>
+        </ol>
+      </div>
+
+      <!-- Input card -->
+      <div class="card">
+        <p>Enter the remainders from your calculations:</p>
+        <label>➗ Remainder when divided by <strong>7</strong>:</label>
+        <input type="number" id="mod7" placeholder="0 to 6" min="0" max="6"/><br><br>
+
+        <label>➗ Remainder when divided by <strong>11</strong>:</label>
+        <input type="number" id="mod11" placeholder="0 to 10" min="0" max="10"/><br><br>
+
+        <label>➗ Remainder when divided by <strong>13</strong>:</label>
+        <input type="number" id="mod13" placeholder="0 to 12" min="0" max="12"/><br><br>
+
+        <button class="neon-btn" onclick="predictCRT()">🔍 Reveal My Number</button>
+      </div>
+
+      <!-- Prediction output -->
+      <div class="card" style="margin-top:20px;">
+        <h3>🎯 Predicted Number:</h3>
+        <div id="crt-reveal-output" style="font-size: 1.5rem; color: #61dafb;"></div>
+      </div>
+
+      <button onclick="showTrickCategory('complex')" class="back-btn">← Back to Tricks</button>
+    </section>
+  `;
+} 
 else if (id === 4) {
+  mainContent.innerHTML = `
+    <section class="trick-details">
+      <h2 style="color:#61dafb">🔐 Your Secret Number</h2>
+      <div class="card">
+        <h3>🧠 Steps to Perform:</h3>
+        <ol>
+          <li>Think of any 3-digit number where the <strong>first and last digits differ by at least 2</strong>.</li>
+          <li>Reverse the number.</li>
+          <li>Subtract the smaller number from the larger one.</li>
+          <li>Now reverse the result.</li>
+          <li>Add the two numbers.</li>
+        </ol>
+      </div>
+      <div class="card">
+      <div class="card">
+  <h3>🎮 Try It Yourself</h3>
+  <p>Think of a 3-digit number (first and last digit should differ by 2 or more), and enter it below:</p>
+  <input type="number" id="trick4-input" placeholder="Enter a 3-digit number" />
+  <button class="neon-btn" onclick="playTrick4()">✨ Predict</button>
+  <div id="trick4-result" style="margin-top: 15px; font-size: 1.2rem;"></div>
+</div>
+
+<div id="trick4-how" style="margin-top: 20px; display: none;">
+  <button class="neon-btn" onclick="document.getElementById('trick4-explanation').style.display='block'; this.style.display='none';">Want to Know How? 🤔</button>
+  <div id="trick4-explanation" style="display:none; margin-top:10px; color:#dbe9f4;">
+    👉 Go to the explanation section! 😝
+  </div>
+</div>
+    </section>
+  `;
+}
+  else if (id === 4) {
   mainContent.innerHTML = `
     <section class="trick-details">
       <h2 style="color:#61dafb">🔐 Your Secret Number</h2>
@@ -776,234 +749,11 @@ else if (id === 6) {
     </section>
   `;
 }
-else if (id === 6) {
-  mainContent.innerHTML = `
-    <section class="trick-details">
-      <h2 style="color:#61dafb">📞 I Know Your Phone Number</h2>
-      <div class="card">
-        <h3>📋 Steps:</h3>
-        <ol>
-          <li>Think of the <b>last 8 digits</b> of your phone number.</li>
-          <li>Reverse those 8 digits.</li>
-          <li>Add 31415 to the reversed number.</li>
-          <li>Multiply the result by 7. This is your <b>final answer</b>.</li>
-          <li>Enter the final answer below 👇</li>
-        </ol>
-      </div>
-
-      <div class="card dob-calc">
-        <h3>🧮 Manual Calculator</h3>
-        <input type="text" id="manual-display-phone" readonly placeholder="0" />
-        <div class="calc-buttons-phone">
-          <button onclick="pressKeyPhone('7')">7</button>
-          <button onclick="pressKeyPhone('8')">8</button>
-          <button onclick="pressKeyPhone('9')">9</button>
-          <button onclick="pressKeyPhone('/')">/</button>
-          <button onclick="pressKeyPhone('4')">4</button>
-          <button onclick="pressKeyPhone('5')">5</button>
-          <button onclick="pressKeyPhone('6')">6</button>
-          <button onclick="pressKeyPhone('*')">*</button>
-          <button onclick="pressKeyPhone('1')">1</button>
-          <button onclick="pressKeyPhone('2')">2</button>
-          <button onclick="pressKeyPhone('3')">3</button>
-          <button onclick="pressKeyPhone('-')">-</button>
-          <button onclick="pressKeyPhone('0')">0</button>
-          <button onclick="pressKeyPhone('.')">.</button>
-          <button onclick="pressKeyPhone('+')">+</button>
-          <button onclick="pressKeyPhone('(')">(</button>
-          <button onclick="pressKeyPhone(')')">)</button>
-          <button onclick="clearManualPhone()">C</button>
-          <button onclick="deleteManualPhone()">DEL</button>
-          <button onclick="calculateManualPhone()">=</button>
-          <button onclick="copyManualResultPhone()">Copy</button>
-        </div>
-      </div>
-
-      <div class="neon-box">
-        <h3>🔓 Paste the Final Answer Below</h3>
-        <input type="number" id="phone-number-final" placeholder="Enter final answer here..." />
-        <button class="neon-btn" onclick="decodePhoneNumber()">Reveal My Number</button>
-        <div id="phone-reveal" class="dob-output"></div>
-      </div>
-
-      <button onclick="showTrickCategory('hard')" class="back-btn">← Back to Tricks</button>
-
-      <style>
-        .calc-buttons-phone {
-          display: grid;
-          grid-template-columns: repeat(4, 1fr);
-          gap: 10px;
-          margin-top: 15px;
-        }
-        .calc-buttons-phone button {
-          padding: 12px;
-          font-size: 1rem;
-          background-color: #2b2b3a;
-          color: #fff;
-          border: none;
-          border-radius: 6px;
-          cursor: pointer;
-          transition: background-color 0.2s;
-        }
-        .calc-buttons-phone button:hover {
-          background-color: #3c3c4f;
-        }
-        #manual-display-phone {
-          width: 100%;
-          font-size: 1.2rem;
-          padding: 10px;
-          background-color: #1c1c2b;
-          color: #fff;
-          border: none;
-          border-radius: 6px;
-          margin-bottom: 10px;
-          text-align: right;
-        }
-      </style>
-    </section>
-  `;
-}
-else if (id === 6) {
-  mainContent.innerHTML = `
-    <section class="trick-details">
-      <h2 style="color:#61dafb">📞 I Know Your Phone Number</h2>
-      <div class="card">
-        <h3>📋 Steps:</h3>
-        <ol>
-          <li>Think of the <b>last 8 digits</b> of your phone number.</li>
-          <li>Reverse those 8 digits.</li>
-          <li>Add 31415 to the reversed number.</li>
-          <li>Multiply the result by 7. This is your <b>final answer</b>.</li>
-          <li>Enter the final answer below 👇</li>
-        </ol>
-      </div>
-
-      <div class="card dob-calc">
-        <h3>🧮 Manual Calculator</h3>
-        <input type="text" id="manual-display-phone" readonly placeholder="0" />
-        <div class="calc-buttons-phone">
-          <button onclick="pressKeyPhone('7')">7</button>
-          <button onclick="pressKeyPhone('8')">8</button>
-          <button onclick="pressKeyPhone('9')">9</button>
-          <button onclick="pressKeyPhone('/')">/</button>
-          <button onclick="pressKeyPhone('4')">4</button>
-          <button onclick="pressKeyPhone('5')">5</button>
-          <button onclick="pressKeyPhone('6')">6</button>
-          <button onclick="pressKeyPhone('*')">*</button>
-          <button onclick="pressKeyPhone('1')">1</button>
-          <button onclick="pressKeyPhone('2')">2</button>
-          <button onclick="pressKeyPhone('3')">3</button>
-          <button onclick="pressKeyPhone('-')">-</button>
-          <button onclick="pressKeyPhone('0')">0</button>
-          <button onclick="pressKeyPhone('.')">.</button>
-          <button onclick="pressKeyPhone('+')">+</button>
-          <button onclick="pressKeyPhone('(')">(</button>
-          <button onclick="pressKeyPhone(')')">)</button>
-          <button onclick="clearManualPhone()">C</button>
-          <button onclick="deleteManualPhone()">DEL</button>
-          <button onclick="calculateManualPhone()">=</button>
-          <button onclick="copyManualResultPhone()">Copy</button>
-        </div>
-      </div>
-
-      <div class="neon-box">
-        <h3>🔓 Paste the Final Answer Below</h3>
-        <input type="number" id="phone-number-final" placeholder="Enter final answer here..." />
-        <button class="neon-btn" onclick="decodePhoneNumber()">Reveal My Number</button>
-        <div id="phone-reveal" class="dob-output"></div>
-      </div>
-
-      <button onclick="showTrickCategory('hard')" class="back-btn">← Back to Tricks</button>
-
-      <style>
-        .calc-buttons-phone {
-          display: grid;
-          grid-template-columns: repeat(4, 1fr);
-          gap: 10px;
-          margin-top: 15px;
-        }
-        .calc-buttons-phone button {
-          padding: 12px;
-          font-size: 1rem;
-          background-color: #2b2b3a;
-          color: #fff;
-          border: none;
-          border-radius: 6px;
-          cursor: pointer;
-          transition: background-color 0.2s;
-        }
-        .calc-buttons-phone button:hover {
-          background-color: #3c3c4f;
-        }
-        #manual-display-phone {
-          width: 100%;
-          font-size: 1.2rem;
-          padding: 10px;
-          background-color: #1c1c2b;
-          color: #fff;
-          border: none;
-          border-radius: 6px;
-          margin-bottom: 10px;
-          text-align: right;
-        }
-      </style>
-    </section>
-  `;
-}
-  else if (id === 10) {
-  mainContent.innerHTML = `
-    <section class="trick-details">
-      <h2 style="color:#61dafb">🔮 CRT Number Predictor (Mod 7, 11, 13)</h2>
-
-      <!-- Static Instructions card -->
-      <div class="card" style="margin-bottom: 20px; font-size: 1.1rem; color: #61dafb;">
-        <h3>📋 Instructions:</h3>
-        <ol>
-          <li>Think of any number between <strong>0 and 999</strong>.</li>
-          <li>Calculate the remainder when your number is divided by <strong>7</strong>. This remainder will be between 0 and 6.</li>
-          <li>Calculate the remainder when your number is divided by <strong>11</strong>. This remainder will be between 0 and 10.</li>
-          <li>Calculate the remainder when your number is divided by <strong>13</strong>. This remainder will be between 0 and 12.</li>
-          <li>Enter these three remainders into the input fields below.</li>
-          <li>Click <em>Reveal My Number</em> to see the predicted number and calculation steps.</li>
-        </ol>
-      </div>
-
-      <!-- Input card -->
-      <div class="card">
-        <p>Enter the remainders from your calculations:</p>
-        <label>➗ Remainder when divided by <strong>7</strong>:</label>
-        <input type="number" id="mod7" placeholder="0 to 6" min="0" max="6"/><br><br>
-
-        <label>➗ Remainder when divided by <strong>11</strong>:</label>
-        <input type="number" id="mod11" placeholder="0 to 10" min="0" max="10"/><br><br>
-
-        <label>➗ Remainder when divided by <strong>13</strong>:</label>
-        <input type="number" id="mod13" placeholder="0 to 12" min="0" max="12"/><br><br>
-
-        <button class="neon-btn" onclick="predictCRT()">🔍 Reveal My Number</button>
-      </div>
-
-      <!-- Prediction output -->
-      <div class="card" style="margin-top:20px;">
-        <h3>🎯 Predicted Number:</h3>
-        <div id="crt-reveal-output" style="font-size: 1.5rem; color: #61dafb;"></div>
-      </div>
-
-      <button onclick="showTrickCategory('complex')" class="back-btn">← Back to Tricks</button>
-    </section>
-  `;
-}
-
-
-
-
-
-
-
-      else {
+  else{
         mainContent.innerHTML = `<section class="trick-details"><h2>Coming Soon</h2><p>This trick is under development.</p></section>`;
       }
     }
+    
         
 
     // ISO week number calculation function
@@ -1023,151 +773,7 @@ function pressKey(val) {
   manualExpression += val;
   document.getElementById('manual-display').value = manualExpression;
 }
-
-function calculateManual() {
-  try {
-    const result = eval(manualExpression);
-    document.getElementById('manual-display').value = result;
-    manualExpression = result.toString();
-  } catch (e) {
-    document.getElementById('manual-display').value = "Error";
-    manualExpression = '';
-  }
-}
-
-function deleteManual() {
-  manualExpression = manualExpression.slice(0, -1);
-  document.getElementById('manual-display').value = manualExpression;
-}
-
-function clearManual() {
-  manualExpression = '';
-  document.getElementById('manual-display').value = '';
-}
-
-function copyManualResult() {
-  const result = document.getElementById('manual-display').value;
-  if (result && result !== "Error") {
-    navigator.clipboard.writeText(result);
-  }
-}
-
-// Decode DOB from number
-function decodeDOB() {
-  const input = Number(document.getElementById("magic-dob-number").value);
-  const output = document.getElementById("dob-reveal");
-  const breakdown = document.getElementById("dob-breakdown");
-
-  if (!input || input < 1000000) {
-    output.innerHTML = `<p>Please enter a valid number (usually over 1 million).</p>`;
-    breakdown.innerHTML = "";
-    return;
-  }
-
-  const semi = (input * 100) / 7919;
-  const year = Math.floor(semi % 100);
-  const month = Math.floor((semi / 100) % 100);
-  const day = Math.floor(semi / 10000);
-
-  output.innerHTML = `<h3>🎉 Your Date of Birth: <strong>${day}/${month}/${year}</strong></h3>`;
-}
-
-function predictTrick3() {
-  const num = Number(document.getElementById('trick3-input').value);
-  if (isNaN(num)) {
-    document.getElementById('trick3-result').innerHTML = "Please enter a valid number.";
-    document.getElementById('trick3-knowhow').style.display = 'none';
-    return;
-  }
-
-  const result = (((num * 2) + 10) / 2) - num;
-
-  document.getElementById('trick3-result').innerHTML = `🎉 Your Lucky Number is <strong>${result}</strong>`;
-  document.getElementById('trick3-knowhow').style.display = 'block';
-  document.getElementById('trick3-knowhow-text').style.display = 'none';
-}
-function predictCRT() {
-  const a1 = parseInt(document.getElementById('mod7').value);
-  const a2 = parseInt(document.getElementById('mod11').value);
-  const a3 = parseInt(document.getElementById('mod13').value);
-
-  if (
-    isNaN(a1) || a1 < 0 || a1 > 6 ||
-    isNaN(a2) || a2 < 0 || a2 > 10 ||
-    isNaN(a3) || a3 < 0 || a3 > 12
-  ) {
-    document.getElementById('crt-reveal-output').innerHTML = "⚠️ Please enter valid remainders.";
-    document.getElementById('crt-step-output').innerText = "";
-    return;
-  }
-
-  const m1 = 7, m2 = 11, m3 = 13;
-  const M = m1 * m2 * m3; // 1001
-
-  const M1 = M / m1; // 143
-  const M2 = M / m2; // 91
-  const M3 = M / m3; // 77
-
-  const x1 = modInverse(M1, m1);
-  const x2 = modInverse(M2, m2);
-  const x3 = modInverse(M3, m3);
-
-  const x = (a1 * M1 * x1 + a2 * M2 * x2 + a3 * M3 * x3) % M;
-  const result = (x + M) % M;
-
-  let steps = `Step 1: Input remainders\n`;
-  steps += `Remainder mod ${m1}: ${a1}\n`;
-  steps += `Remainder mod ${m2}: ${a2}\n`;
-  steps += `Remainder mod ${m3}: ${a3}\n\n`;
-
-  steps += `Step 2: Calculate partial products\n`;
-  steps += `M = ${M} = ${m1} × ${m2} × ${m3}\n`;
-  steps += `M1 = ${M1}, M2 = ${M2}, M3 = ${M3}\n\n`;
-
-  steps += `Step 3: Compute modular inverses\n`;
-  steps += `Inverse of M1 mod ${m1} = ${x1}\n`;
-  steps += `Inverse of M2 mod ${m2} = ${x2}\n`;
-  steps += `Inverse of M3 mod ${m3} = ${x3}\n\n`;
-
-  steps += `Step 4: Calculate result\n`;
-  steps += `x = (a1×M1×x1 + a2×M2×x2 + a3×M3×x3) mod M\n`;
-  steps += `  = (${a1}×${M1}×${x1} + ${a2}×${M2}×${x2} + ${a3}×${M3}×${x3}) mod ${M}\n`;
-  steps += `  = ${x}\n\n`;
-
-  steps += `Final predicted number: ${result.toString().padStart(3, '0')}`;
-
-  
-  document.getElementById('crt-reveal-output').innerHTML = `🎉 <strong>${result.toString().padStart(3, '0')}</strong>`;
-}
-
-function modInverse(a, m) {
-  const [g, x] = extendedGCD_Int(a, m);
-  if (g !== 1) return null;
-  return (x % m + m) % m;
-}
-
-function extendedGCD_Int(a, b) {
-  if (b === 0) return [a, 1, 0];
-  const [g, x1, y1] = extendedGCD_Int(b, a % b);
-  return [g, y1, x1 - Math.floor(a / b) * y1];
-}
-
-
-    // Other existing functions (calculateMagicNumber, decodeDOB, manual calculator, etc.) remain unchanged...
-
-    document.addEventListener("DOMContentLoaded", () => {
-      const loader = document.getElementById("loader");
-      if (loader) {
-        setTimeout(() => {
-          loader.style.display = "none";
-          navigate('home');
-        }, 3000);
-      } else {
-        navigate('home');
-      }
-    });
-
-    function playTrick4() {
+ function playTrick4() {
   const input = document.getElementById("trick4-input").value.trim();
   const resultDiv = document.getElementById("trick4-result");
   const howDiv = document.getElementById("trick4-how");
@@ -1234,6 +840,69 @@ function copyManualResultTime() {
   }
 }
 
+function showExplanationCategory(type) {
+  const explanations = {
+    simple: [
+      {
+        title: "🖐 Trick 1 – 9 Times Table (Hand)",
+        desc: "This trick lets you use your fingers to find 9 times any number from 1 to 10. You put down the finger that matches the number. The fingers to the left give the tens digit, and the ones to the right give the units. For example, for 9×4, the fourth finger is down. You have 3 fingers left of it and 6 to the right = 36."
+      },
+      {
+        title: "🔢 Trick 2 – Multiply Any Number By 5 Fast",
+        desc: "Just divide the number by 2 and multiply it by 10. For example, 48×5 becomes 48÷2 = 24, then ×10 = 240. Fast mental math!"
+      },
+      {
+        title: "🍀 Trick 3 – Your Lucky Number",
+        desc: "Whatever number you choose, the final result will always be 5 due to the algebraic pattern: ((x×2)+10)/2 - x = 5."
+      }
+    ],
+    hard: [
+      {
+        title: "🔐 Trick 4 – Your Secret Number",
+        desc: "Start with a 3-digit number where the first and last digits differ by 2 or more. Reverse it, subtract smaller from bigger, then reverse the result and add. It always ends up at 1089."
+      },
+      {
+        title: "⏰ Trick 5 – I Know the Time You’re Thinking",
+        desc: "You do a series of math operations using your thought time (hours and minutes). When reversed, it reveals your time. The reverse logic extracts hours and minutes from the calculated number."
+      },
+      {
+        title: "📞 Trick 6 – I Know Your Phone Number",
+        desc: "You reverse your phone digits, add a fixed number (31415), and multiply by 7. This process hides your number inside a larger one. When decoded (reversed math), it reveals the last 8 digits."
+      }
+    ],
+    complex: [
+      {
+        title: "🔮 Trick 7 – The Number That Reveals Your DOB",
+        desc: "You calculate a big number using your DOB. The trick uses a fixed multiplier to pack day, month, and year into a single number. Reversing the math extracts all three parts."
+      },
+      {
+        title: "📅 Trick 8 – Zeller’s Formula",
+        desc: "This uses Zeller’s congruence formula to calculate the day of the week for any date. The user can input BS dates, which get converted to AD first before applying the formula."
+      },
+      {
+        title: "🧠 Trick 9 – ISO Week Number",
+        desc: "This trick uses ISO calendar logic. You input a date, and the trick shows you what week number it falls in based on ISO 8601 standard (weeks start on Monday, and week 1 is the one with Jan 4)."
+      }
+    ]
+  };
+
+  const selected = explanations[type];
+  const cards = selected.map(trick => `
+    <div class="card">
+      <h3>${trick.title}</h3>
+      <p>${trick.desc}</p>
+    </div>
+  `).join('');
+
+  const mainContent = document.getElementById('main-content');
+  mainContent.innerHTML = `
+    <section class="explanation-category">
+      <h2>${type.charAt(0).toUpperCase() + type.slice(1)} Trick Explanations</h2>
+      <div class="tricks-grid">${cards}</div>
+      <button onclick="navigate('explanations')" class="back-btn">← Back to Categories</button>
+    </section>
+  `;
+}
 
 function revealTimeTrick() {
   const finalNumber = Number(document.getElementById('time-trick-input').value);
@@ -1340,6 +1009,165 @@ function decodePhoneNumber() {
 
 
 
+function calculateManual() {
+  try {
+    const result = eval(manualExpression);
+    document.getElementById('manual-display').value = result;
+    manualExpression = result.toString();
+  } catch (e) {
+    document.getElementById('manual-display').value = "Error";
+    manualExpression = '';
+  }
+}
+
+function deleteManual() {
+  manualExpression = manualExpression.slice(0, -1);
+  document.getElementById('manual-display').value = manualExpression;
+}
+
+function clearManual() {
+  manualExpression = '';
+  document.getElementById('manual-display').value = '';
+}
+
+function copyManualResult() {
+  const result = document.getElementById('manual-display').value;
+  if (result && result !== "Error") {
+    navigator.clipboard.writeText(result);
+  }
+}
+
+// Decode DOB from number
+function decodeDOB() {
+  const input = Number(document.getElementById("magic-dob-number").value);
+  const output = document.getElementById("dob-reveal");
+  const breakdown = document.getElementById("dob-breakdown");
+
+  if (!input || input < 1000000) {
+    output.innerHTML = `<p>Please enter a valid number (usually over 1 million).</p>`;
+    breakdown.innerHTML = "";
+    return;
+  }
+
+  const semi = (input * 100) / 7919;
+  const year = Math.floor(semi % 100);
+  const month = Math.floor((semi / 100) % 100);
+  const day = Math.floor(semi / 10000);
+
+  output.innerHTML = `<h3>🎉 Your Date of Birth: <strong>${day}/${month}/${year}</strong></h3>`;
+}
+
+function predictTrick3() {
+  const input = document.getElementById('trick3-input').value.trim();
+  const resultDiv = document.getElementById('trick3-result');
+  const knowHowDiv = document.getElementById('trick3-knowhow');
+
+  if (input === '') {
+    resultDiv.innerHTML = "⚠️ Please enter a number.";
+    knowHowDiv.style.display = "none";
+    return;
+  }
+
+  const original = parseInt(input);
+  if (isNaN(original)) {
+    resultDiv.innerHTML = "⚠️ Invalid input.";
+    knowHowDiv.style.display = "none";
+    return;
+  }
+
+  // Magic trick logic
+  const double = original * 2;
+  const added = double + 10;
+  const half = added / 2;
+  const final = half - original;
+
+  resultDiv.innerHTML = `🎉 Your lucky number is <strong>${final}</strong>!`;
+  knowHowDiv.style.display = "block";
+}
+
+function predictCRT() {
+  const a1 = parseInt(document.getElementById('mod7').value);
+  const a2 = parseInt(document.getElementById('mod11').value);
+  const a3 = parseInt(document.getElementById('mod13').value);
+
+  if (
+    isNaN(a1) || a1 < 0 || a1 > 6 ||
+    isNaN(a2) || a2 < 0 || a2 > 10 ||
+    isNaN(a3) || a3 < 0 || a3 > 12
+  ) {
+    document.getElementById('crt-reveal-output').innerHTML = "⚠️ Please enter valid remainders.";
+    document.getElementById('crt-step-output').innerText = "";
+    return;
+  }
+
+  const m1 = 7, m2 = 11, m3 = 13;
+  const M = m1 * m2 * m3; // 1001
+
+  const M1 = M / m1; // 143
+  const M2 = M / m2; // 91
+  const M3 = M / m3; // 77
+
+  const x1 = modInverse(M1, m1);
+  const x2 = modInverse(M2, m2);
+  const x3 = modInverse(M3, m3);
+
+  const x = (a1 * M1 * x1 + a2 * M2 * x2 + a3 * M3 * x3) % M;
+  const result = (x + M) % M;
+
+  let steps = `Step 1: Input remainders\n`;
+  steps += `Remainder mod ${m1}: ${a1}\n`;
+  steps += `Remainder mod ${m2}: ${a2}\n`;
+  steps += `Remainder mod ${m3}: ${a3}\n\n`;
+
+  steps += `Step 2: Calculate partial products\n`;
+  steps += `M = ${M} = ${m1} × ${m2} × ${m3}\n`;
+  steps += `M1 = ${M1}, M2 = ${M2}, M3 = ${M3}\n\n`;
+
+  steps += `Step 3: Compute modular inverses\n`;
+  steps += `Inverse of M1 mod ${m1} = ${x1}\n`;
+  steps += `Inverse of M2 mod ${m2} = ${x2}\n`;
+  steps += `Inverse of M3 mod ${m3} = ${x3}\n\n`;
+
+  steps += `Step 4: Calculate result\n`;
+  steps += `x = (a1×M1×x1 + a2×M2×x2 + a3×M3×x3) mod M\n`;
+  steps += `  = (${a1}×${M1}×${x1} + ${a2}×${M2}×${x2} + ${a3}×${M3}×${x3}) mod ${M}\n`;
+  steps += `  = ${x}\n\n`;
+
+  steps += `Final predicted number: ${result.toString().padStart(3, '0')}`;
+
+  
+  document.getElementById('crt-reveal-output').innerHTML = `🎉 <strong>${result.toString().padStart(3, '0')}</strong>`;
+}
+
+function modInverse(a, m) {
+  const [g, x] = extendedGCD_Int(a, m);
+  if (g !== 1) return null;
+  return (x % m + m) % m;
+}
+
+function extendedGCD_Int(a, b) {
+  if (b === 0) return [a, 1, 0];
+  const [g, x1, y1] = extendedGCD_Int(b, a % b);
+  return [g, y1, x1 - Math.floor(a / b) * y1];
+}
+
+// You can keep your existing modInverse and extendedGCD_Int functions here.
+
+
+    // Other existing functions (calculateMagicNumber, decodeDOB, manual calculator, etc.) remain unchanged...
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const loader = document.getElementById("loader");
+      if (loader) {
+        setTimeout(() => {
+          loader.style.display = "none";
+          navigate('home');
+        }, 3000);
+      } else {
+        navigate('home');
+      }
+    });
+
   </script>
 
 <script src="bsAdConverter.js"></script>
@@ -1352,4 +1180,4 @@ function decodePhoneNumber() {
 <script src="script.js"></script>
 
 </body>
-</html>
+</html
